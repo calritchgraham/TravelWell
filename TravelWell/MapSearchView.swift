@@ -35,20 +35,20 @@ struct MapSearchView: View {
             VStack{
                 List {
                     ForEach(results, id:\.self) { item in
-                        NavigationLink(destination: MapView(region: MKCoordinateRegion(center: item.placemark.coordinate, latitudinalMeters: 100.0, longitudinalMeters: 100.0), accom: accom)){
+                        NavigationLink(destination: MapView(region: MKCoordinateRegion(center: item.placemark.coordinate, latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: accom)){
                             HStack{
                                 Text(item.name ?? "Unknown")
                                 Text(item.phoneNumber ?? "Unknown")
+                            }.onDisappear{
+                                //accom.append(Location(coordinate: item.placemark.coordinate))
                             }
                         }
                     }
-                                       
-
-                }.onAppear{
-                        self.search()
                 }
 
-            }
+            }.onAppear{
+                self.search()
+            }.navigationBarHidden(true)
         }
     }
 }
