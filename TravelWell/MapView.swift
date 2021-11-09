@@ -15,19 +15,21 @@ struct MapView: View {
     @State var searchTerm = ""
 
     var body: some View {
+        NavigationView{
             VStack{
-                Map(coordinateRegion: $region , showsUserLocation: true, annotationItems: accom) { place in
-                    MapMarker(coordinate: place.coordinate, tint: Color.purple)
-                }.ignoresSafeArea()
-                HStack{
-                    TextField("Search for...", text: $searchTerm)
-                    NavigationLink(destination: MapSearchView(searchTerm: searchTerm, region: region, accom: accom) ){
-                        Image(systemName: "magnifyingglass.circle.fill")
+                    Map(coordinateRegion: $region , showsUserLocation: true, annotationItems: accom) { place in
+                        MapMarker(coordinate: place.coordinate, tint: Color.purple)
+                    }.ignoresSafeArea()
+                    HStack{
+                        TextField("Search for...", text: $searchTerm)
+                        NavigationLink(destination: MapSearchView(searchTerm: searchTerm, region: region, accom: accom) ){
+                            Image(systemName: "magnifyingglass.circle.fill")
+                    }
+                    }.navigationBarHidden(true)
+                    
+                    .frame(height: 50.00)
                 }
-                }.navigationBarHidden(true)
-                
-                .frame(height: 50.00)
-            }
+        }
     }
 }
 

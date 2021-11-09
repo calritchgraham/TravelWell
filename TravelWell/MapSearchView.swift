@@ -7,6 +7,7 @@ struct MapSearchView: View {
     let request = MKLocalSearch.Request()
     @State var results = [MKMapItem]()
     @State var accom  : [Location]
+    let geocoder = CLGeocoder()
 
 
     func search(){
@@ -26,26 +27,29 @@ struct MapSearchView: View {
                   
                   results.append(item)
               }
+            
         })
-     }
-
-    
-                   
-    
+    }
     var body: some View {
         NavigationView{
             VStack{
-                
                 List {
                     ForEach(results, id:\.self) { item in
-                        //NavigationLink(destination: MapView(region: MKCoordinateRegion(center: item.coord, accom: accom)){
-                            Text((String(describing: item.name)))
-                        //}
+                        NavigationLink(destination: MapView(region: MKCoordinateRegion(center: item.placemark.coordinate, latitudinalMeters: 100.0, longitudinalMeters: 100.0), accom: accom)){
+                            HStack{
+                                Text(item.name ?? "Unknown")
+                                Text(item.phoneNumber ?? "Unknown")
+                            }
+                        }
                     }
+                                       
+
                 }.onAppear{
-                    self.search()
+                        self.search()
                 }
+
             }
         }
     }
 }
+    
