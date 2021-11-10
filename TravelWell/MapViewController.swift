@@ -8,11 +8,44 @@
 import Foundation
 import MapKit
 import CoreLocation
+import Amadeus
 
 final class MapViewController: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     var locationManager : CLLocationManager?
-        
+
+    var amadeus = Amadeus(
+        client_id: "TycnndCzMy2REAGklAoOnPGpFPPyjzeh",
+        client_secret: "iGrOgfawkDyEjm5O"
+    )
+    
+    func getSafetyRating(trip: Trip){
+        let params = ["latitude": "\(trip.lat)", "longitude": "\(trip.long)"]
+        self.amadeus.safety.safetyRatedLocations.get(params: params) { result in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    print(response.data.arrayValue.first ?? "not found")
+                }
+            case .failure(let error):
+                print("Error fetching nearby places - \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func getCovidRestrictions(country: String){
+        let params = ["countryCode": "\(country)"]
+
+        amadeus.client.get(path:"v1/duty-of-care/diseases/covid19-area-report",
+                    params: params , onCompletion: { result in
+            switch result{
+            case .success(let response):
+                print(response.data.rawValue)
+            case.failure(let error):
+                print("Error covid info - \(error.localizedDescription)")
+            }
+        })
+    }
     
     func checkLocationServicesEnabled(){
         if CLLocationManager.locationServicesEnabled(){
@@ -25,7 +58,7 @@ final class MapViewController: NSObject, ObservableObject, CLLocationManagerDele
     }
     
     private func checkLocationServicesAuthoriosed() {
-        guard let locationManager = locationManager else { return } //error handling above
+        guard let locationManager = locationManager else { return }
         
         switch locationManager.authorizationStatus {
             

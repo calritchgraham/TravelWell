@@ -31,7 +31,6 @@ struct MapSearchView: View {
         })
     }
     var body: some View {
-        NavigationView{
             VStack{
                 List {
                     ForEach(results, id:\.self) { item in
@@ -39,8 +38,8 @@ struct MapSearchView: View {
                             HStack{
                                 Text(item.name ?? "Unknown")
                                 Text(item.phoneNumber ?? "Unknown")
-                            }.onDisappear{
-                                //accom.append(Location(coordinate: item.placemark.coordinate))
+                            }.onTapGesture{
+                                accom.append(Location(coordinate: item.placemark.coordinate))
                             }
                         }
                     }
@@ -48,8 +47,7 @@ struct MapSearchView: View {
 
             }.onAppear{
                 self.search()
-            }.navigationBarHidden(true)
-        }
+            }
     }
 }
     

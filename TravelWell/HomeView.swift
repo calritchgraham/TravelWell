@@ -21,7 +21,7 @@ struct HomeView: View {
     
     let today = Date()
     @State var onATrip = false
-    @StateObject private var mapViewModel = MapViewController()
+    @StateObject private var mapViewController = MapViewController()
     @State var region = MKCoordinateRegion()
     @State var currTrip = Trip()
     @State var accom = [Location]()
@@ -55,6 +55,8 @@ struct HomeView: View {
                 
             }.onAppear{
                 onATrip = self.isOnATrip()
+                //mapViewController.getSafetyRating(trip: currTrip)
+                mapViewController.getCovidRestrictions(country: currTrip.destination!)
             }
         }.navigationBarHidden(true)
     }
@@ -87,7 +89,7 @@ struct HomeView: View {
     
     func mapInitiate(){
          if onATrip == true{
-             mapViewModel.checkLocationServicesEnabled()
+             mapViewController.checkLocationServicesEnabled()
              let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: currTrip.lat, longitude: currTrip.long))
              self.accom.append(accomPin)
              currCoords = CLLocationCoordinate2D(latitude: currTrip.lat, longitude: currTrip.long)

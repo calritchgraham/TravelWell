@@ -16,7 +16,7 @@ import CoreLocation
  */
 struct TripView: View {
     
-    @State var trip = Trip()
+    @State var trip : Trip
     
     var body: some View {
         VStack{
