@@ -13,6 +13,12 @@
         <attribute name="tuesday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="wednesday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
+    <entity name="Favourite" representedClassName=".Favourite" syncable="YES">
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="trip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="favourite" inverseEntity="Trip"/>
+    </entity>
     <entity name="Trip" representedClassName=".Trip" syncable="YES">
         <attribute name="accomAddress" optional="YES" attributeType="String"/>
         <attribute name="accomName" optional="YES" attributeType="String"/>
@@ -21,9 +27,11 @@
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="outbound" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="favourite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Favourite" inverseName="trip" inverseEntity="Favourite"/>
     </entity>
     <elements>
-        <element name="AppProfile" positionX="-63" positionY="-18" width="128" height="194"/>
-        <element name="Trip" positionX="-54" positionY="72" width="128" height="134"/>
+        <element name="Trip" positionX="-54" positionY="72" width="128" height="149"/>
+        <element name="Favourite" positionX="-36" positionY="99" width="128" height="89"/>
+        <element name="AppProfile" positionX="-18" positionY="81" width="128" height="194"/>
     </elements>
 </model>

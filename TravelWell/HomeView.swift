@@ -35,7 +35,7 @@ struct HomeView: View {
                     Text("The time at home is")
                     Text(getHomeTime(), style: .time)
                     
-                    NavigationLink(destination: MapView(region: region, accom: accom)){
+                    NavigationLink(destination: MapView(region: region, accom: accom, currTrip: currTrip)){
                             Map(coordinateRegion: $region , showsUserLocation: true, annotationItems: accom) { place in
                                 MapMarker(coordinate: place.coordinate, tint: Color.purple)
                             }.frame(width: 400, height: 300).onAppear{
@@ -55,8 +55,6 @@ struct HomeView: View {
                 
             }.onAppear{
                 onATrip = self.isOnATrip()
-                //mapViewController.getSafetyRating(trip: currTrip)
-                mapViewController.getCovidRestrictions(country: currTrip.destination!)
             }
         }.navigationBarHidden(true)
     }

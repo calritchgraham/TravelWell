@@ -29,6 +29,8 @@
 		1DDB6E2D2739D34B0079881B /* MapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E2C2739D34B0079881B /* MapSearchView.swift */; };
 		1DDB6E2F2739D3810079881B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E2E2739D3810079881B /* MapViewController.swift */; };
 		1DDB6E7F273C4ED50079881B /* Amadeus in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDB6E7E273C4ED50079881B /* Amadeus */; };
+		1DDB6E88273C8C480079881B /* Favourite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E86273C8C480079881B /* Favourite+CoreDataClass.swift */; };
+		1DDB6E89273C8C480079881B /* Favourite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E87273C8C480079881B /* Favourite+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		1DDB6E2A2739C6D50079881B /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		1DDB6E2C2739D34B0079881B /* MapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchView.swift; sourceTree = "<group>"; };
 		1DDB6E2E2739D3810079881B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		1DDB6E86273C8C480079881B /* Favourite+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1DDB6E87273C8C480079881B /* Favourite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 		1DDB6DE627399ED80079881B = {
 			isa = PBXGroup;
 			children = (
+				1DDB6E86273C8C480079881B /* Favourite+CoreDataClass.swift */,
+				1DDB6E87273C8C480079881B /* Favourite+CoreDataProperties.swift */,
 				1DDB6E262739C6520079881B /* Trip+CoreDataClass.swift */,
 				1DDB6E272739C6520079881B /* Trip+CoreDataProperties.swift */,
 				1DDB6E162739BA2E0079881B /* AppProfile+CoreDataClass.swift */,
@@ -197,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DDB6E1B2739C4690079881B /* AddTripView.swift in Sources */,
+				1DDB6E88273C8C480079881B /* Favourite+CoreDataClass.swift in Sources */,
 				1DDB6DFC27399ED90079881B /* Persistence.swift in Sources */,
 				1DDB6E292739C6520079881B /* Trip+CoreDataProperties.swift in Sources */,
 				1DDB6DFF27399ED90079881B /* TravelWell.xcdatamodeld in Sources */,
@@ -209,6 +216,7 @@
 				1DDB6E0A2739A0EA0079881B /* ProfileView.swift in Sources */,
 				1DDB6E2B2739C6D50079881B /* TripView.swift in Sources */,
 				1DDB6E2D2739D34B0079881B /* MapSearchView.swift in Sources */,
+				1DDB6E89273C8C480079881B /* Favourite+CoreDataProperties.swift in Sources */,
 				1DDB6E182739BA2E0079881B /* AppProfile+CoreDataClass.swift in Sources */,
 				1DDB6DF327399ED80079881B /* TravelWellApp.swift in Sources */,
 				1DDB6E152739B6150079881B /* Model.xcdatamodeld in Sources */,

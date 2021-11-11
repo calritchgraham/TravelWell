@@ -13,6 +13,7 @@ struct MapView: View {
     @State var region : MKCoordinateRegion
     @State var accom  : [Location]
     @State var searchTerm = ""
+    var currTrip : Trip
 
     var body: some View {
         VStack{
@@ -21,7 +22,7 @@ struct MapView: View {
             }.ignoresSafeArea()
             HStack{
                 TextField("Search for...", text: $searchTerm)
-                NavigationLink(destination: MapSearchView(searchTerm: searchTerm, region: region, accom: accom)){
+                NavigationLink(destination: MapSearchView(searchTerm: searchTerm, region: region, accom: accom, currTrip: currTrip)){
                     Image(systemName: "magnifyingglass.circle.fill")
                 }
             }.frame(height: 50.00)

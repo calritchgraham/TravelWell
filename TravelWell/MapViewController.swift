@@ -37,7 +37,7 @@ final class MapViewController: NSObject, ObservableObject, CLLocationManagerDele
         let params = ["countryCode": "\(country)"]
 
         amadeus.client.get(path:"v1/duty-of-care/diseases/covid19-area-report",
-                    params: params , onCompletion: { result in
+                    params: params, onCompletion: { result in
             switch result{
             case .success(let response):
                 print(response.data.rawValue)
@@ -80,4 +80,5 @@ final class MapViewController: NSObject, ObservableObject, CLLocationManagerDele
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {      // checks if authorisation has been changed
         checkLocationServicesEnabled()
     }
+
 }
