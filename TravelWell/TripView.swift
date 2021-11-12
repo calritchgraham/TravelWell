@@ -8,25 +8,209 @@
 import SwiftUI
 import CoreData
 import CoreLocation
+import MapKit
+import Amadeus
+import SwiftyJSON
 
 /*
- delete trip
- add details not already present
+ Safety Info
+ Covid Info
  
  */
 struct TripView: View {
- 
+    var amadeus = Amadeus(
+        client_id: "TycnndCzMy2REAGklAoOnPGpFPPyjzeh",
+        client_secret: "iGrOgfawkDyEjm5O"
+    )
+    @State var overall = ""
+    @State var theft = ""
+    @State var physicalHarm = ""
+    @State var women = ""
+    @State var lgbt = ""
     let mapViewController = MapViewController()
-    
     @State var trip : Trip
+    @State var accom = [Location]()
+    @State var region = MKCoordinateRegion()
+    @State var filteredFavs = Set<String>()
+    @State var safetyRatings = [SafetyRating]()
+    @State var showSafety = false
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(entity: Favourite.entity(),
+                  sortDescriptors: [NSSortDescriptor(keyPath: \Favourite.name, ascending: true)]
+                  
+                        ) var favourites: FetchedResults<Favourite>
+    
+    func mapInitiate(){
+        let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: trip.lat, longitude: trip.long))
+        self.accom.append(accomPin)
+        self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: trip.lat, longitude: trip.long), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    }
+    
+    func getSafetyRating(trip: Trip){
+        let params = ["latitude": "\(trip.lat)", "longitude": "\(trip.long)"]
+        self.amadeus.safety.safetyRatedLocations.get(params: params) { result in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self.updateSR(response: response)
+                }
+            case .failure(let error):
+                print("Error fetching nearby places - \(error.localizedDescription)")
+                return
+            }
+        }
+    }
+    
+    func updateSR(response: Response){
+        var safetyR = SafetyRating()
+        for safetyRating in response.data.arrayValue {
+            safetyR.name = safetyRating["name"].stringValue
+            safetyR.safetyScores.lgbtq = safetyRating["safetyScores"]["lgbtq"].intValue
+            safetyR.safetyScores.theft = safetyRating["safetyScores"]["theft"].intValue
+            safetyR.safetyScores.physicalHarm = safetyRating["safetyScores"]["physicalHarm"].intValue
+            safetyR.safetyScores.women = safetyRating["safetyScores"]["women"].intValue
+            safetyR.safetyScores.overall = safetyRating["safetyScores"]["overall"].intValue
+            safetyRatings.append(safetyR)
+        }
+    }
+    
+   
+    func getCovidRestrictions(country: String){
+        let params = ["countryCode": "\(country)"]
+
+        amadeus.client.get(path:"v1/duty-of-care/diseases/covid19-area-report",
+                    params: params, onCompletion: { result in
+            switch result{
+            case .success(let response):
+                print("succ")
+            case.failure(let error):
+                print("Error covid info - \(error.localizedDescription)")
+            }
+        })
+    }
+    
+    func mapSafetyScore(){
+        let scores = safetyRatings.first?.safetyScores
+        self.lgbt = stringSafetyScores(int: scores!.lgbtq)
+        self.theft = stringSafetyScores(int: scores!.theft)
+        self.physicalHarm = stringSafetyScores(int: scores!.physicalHarm)
+        self.women = stringSafetyScores(int: scores!.women)
+        self.overall = stringSafetyScores(int: scores!.overall)
+        
+
+        
+    }
+    
+    func stringSafetyScores(int :Int)-> String{
+        if int < 34{
+            return "Low"
+        }else if int < 67{
+            return "Medium"
+            
+        }else{
+            return "High"
+        }
+    }
     
     
     var body: some View {
         VStack{
-            Text(trip.accomAddress!)
-            Text(trip.destination!)
-        }.onAppear{
-            mapViewController.getSafetyRating(trip: trip)
+            Text(trip.accomName!)
+            
+            NavigationLink(destination: MapView(region: region, accom: accom, currTrip: trip)){
+                    Map(coordinateRegion: $region , showsUserLocation: true, annotationItems: accom) { place in
+                        MapMarker(coordinate: place.coordinate, tint: Color.purple)
+                    }.frame(width: 400, height: 300).onAppear{
+                        self.mapInitiate()
+                    }
+            }.onAppear{
+                self.getSafetyRating(trip: trip)
+                //mapViewController.getCovidRestrictions(country: trip.destination!)
+                self.mapInitiate()
+            }
+            if safetyRatings.isEmpty == false{
+                HStack{
+                    Text("\(safetyRatings.first!.name) Safety Ratings").onAppear{
+                    self.mapSafetyScore()
+                    }
+                    Spacer()
+                    Image(systemName: "eye").onTapGesture{
+                        self.showSafety.toggle()
+                    }
+                    
+                }
+                if showSafety{
+                    List{
+                        HStack{
+                            Text("Overall")
+                            Spacer()
+                            Text(self.overall)
+                        }
+                        HStack{
+                            Text("Theft")
+                            Spacer()
+                            Text(self.theft)
+                        }
+                        HStack{
+                            Text("Physical Harm")
+                            Spacer()
+                            Text(self.physicalHarm)
+                        }
+                        HStack{
+                            Text("Women")
+                            Spacer()
+                            Text(self.women)
+                        }
+                        HStack{
+                            Text("LGBTQ")
+                            Spacer()
+                            Text(self.lgbt)
+                        }
+                    }
+                }
+                
+               
+              
+            
+            
+            
+            Text("Starred Places")
+            
+            List {
+                ForEach(favourites, id:\.self) { item in
+                    NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: accom, currTrip: trip)){
+                        HStack{
+                            Text(item.name ?? "Unknown")
+                            Spacer()
+                            Image(systemName: "star.fill").onTapGesture{
+                                PersistenceController.shared.delete(item)
+                            }
+                        }
+                    }.onTapGesture{ //not working
+                            accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
+                    }
+                }
+            }
+        }
+//        let locationFrom = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude) distance between 2 coords in meters
+//               let locationTo = CLLocation(latitude: location.latitude, longitude: location.longitude)
+//               let distance = locationTo.distance(from: locationFrom)
+    
+  
+            
         }
     }
+}
+
+struct SafetyRating {
+    var safetyScores = SafetyScore()
+    var name = ""
+}
+
+struct SafetyScore: Decodable{
+    var lgbtq = 0
+    var theft = 0
+    var physicalHarm = 0
+    var women = 0
+    var overall = 0
 }

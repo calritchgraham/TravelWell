@@ -22,8 +22,10 @@ struct MapView: View {
             }.ignoresSafeArea()
             HStack{
                 TextField("Search for...", text: $searchTerm)
-                NavigationLink(destination: MapSearchView(searchTerm: searchTerm, region: region, accom: accom, currTrip: currTrip)){
-                    Image(systemName: "magnifyingglass.circle.fill")
+                if searchTerm != "" {
+                    NavigationLink(destination: MapSearchView(searchTerm: searchTerm, region: region, accom: accom, currTrip: currTrip)){
+                        Image(systemName: "magnifyingglass.circle.fill")
+                    }
                 }
             }.frame(height: 50.00)
         }

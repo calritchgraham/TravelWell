@@ -15,9 +15,7 @@ struct MapSearchView: View {
                   sortDescriptors: [NSSortDescriptor(keyPath: \Favourite.name, ascending: true)]
                   
                         ) var favourites: FetchedResults<Favourite>
-
-    // fetch favourites, code remove favourite from button press and chahge start to fill if already favourited
-
+    
     func search(){
         request.region = region
         request.naturalLanguageQuery = searchTerm
@@ -31,13 +29,14 @@ struct MapSearchView: View {
            } else {
               print("Matches found")
            }
-              for item in response!.mapItems {
+              for item in response!.mapItems {  //do something if nil
                   
                   results.append(item)
               }
             
         })
     }
+    
     func favouriteFilter(){
         for item in favourites{
             if item.trip == currTrip{
@@ -51,7 +50,7 @@ struct MapSearchView: View {
         for favourite in favourites{
             if favourite.name == item.name{
                 let favouriteDelete = favourite
-                managedObjectContext.delete(favouriteDelete)
+                PersistenceController.shared.delete(favouriteDelete)
                 filteredFavs.remove(item.name!)
             }
         }
@@ -85,12 +84,15 @@ struct MapSearchView: View {
                                         self.favouriteSave(item: item)
                                     }
                                 }
-                            }.onTapGesture{
-                                accom.append(Location(coordinate: item.placemark.coordinate))
                             }
-                        }
-                    }
+                    }.onDisappear{ //not working
+                        accom = [Location]()
+                        accom.append(Location(coordinate: item.placemark.coordinate))
+                        print("appended")
                 }
+                }
+            }
+               
 
             }.onAppear{
                 self.search()

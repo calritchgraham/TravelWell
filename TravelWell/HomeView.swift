@@ -100,12 +100,6 @@ struct HomeView: View {
      }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View{
-        ContentView()
-    }
-}
-
 struct Location: Identifiable {
   let id = UUID()
   let coordinate: CLLocationCoordinate2D
