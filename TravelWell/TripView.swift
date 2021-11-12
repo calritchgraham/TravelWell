@@ -166,35 +166,35 @@ struct TripView: View {
                             Spacer()
                             Text(self.lgbt)
                         }
-                    }
+                    }.frame(height: 250)
                 }
-                
-               
-              
-            
-            
             
             Text("Starred Places")
             
             List {
                 ForEach(favourites, id:\.self) { item in
                     NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: accom, currTrip: trip)){
-                        HStack{
-                            Text(item.name ?? "Unknown")
-                            Spacer()
-                            Image(systemName: "star.fill").onTapGesture{
-                                PersistenceController.shared.delete(item)
+                        VStack{
+                            HStack{
+                                Text(item.name ?? "Unknown")
+                                Spacer()
+                                Image(systemName: "star.fill").onTapGesture{
+                                    PersistenceController.shared.delete(item)
+                                }
+                            
                             }
+                            HStack{
+                                Text("Distance from accomodation")
+                                Spacer()
+                                Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: trip.lat, longitude: trip.long))))))))) m")
+                            }
+                        }.onTapGesture{ //not working
+                                accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                         }
-                    }.onTapGesture{ //not working
-                            accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                     }
                 }
             }
         }
-//        let locationFrom = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude) distance between 2 coords in meters
-//               let locationTo = CLLocation(latitude: location.latitude, longitude: location.longitude)
-//               let distance = locationTo.distance(from: locationFrom)
     
   
             
