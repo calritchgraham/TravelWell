@@ -34,6 +34,9 @@ struct TripView: View {
     @State var filteredFavs = Set<String>()
     @State var safetyRatings = [SafetyRating]()
     @State var showSafety = false
+    @State var covidAvailable = false
+    @State var showCovid = false
+    @State var covidResults : Welcome?
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Favourite.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Favourite.name, ascending: true)]
@@ -82,9 +85,12 @@ struct TripView: View {
                     params: params, onCompletion: { result in
             switch result{
             case .success(let response):
-                print("succ")
+                let data = Data(response.body.utf8)
+                covidResults = try! JSONDecoder().decode(Welcome.self, from: data)  //deal with nil values
+                self.covidAvailable = true
             case.failure(let error):
                 print("Error covid info - \(error.localizedDescription)")
+                
             }
         })
     }
@@ -96,9 +102,6 @@ struct TripView: View {
         self.physicalHarm = stringSafetyScores(int: scores!.physicalHarm)
         self.women = stringSafetyScores(int: scores!.women)
         self.overall = stringSafetyScores(int: scores!.overall)
-        
-
-        
     }
     
     func stringSafetyScores(int :Int)-> String{
@@ -125,17 +128,23 @@ struct TripView: View {
                     }
             }.onAppear{
                 self.getSafetyRating(trip: trip)
-                //mapViewController.getCovidRestrictions(country: trip.destination!)
+                self.getCovidRestrictions(country: trip.destination!)
                 self.mapInitiate()
             }
-            if safetyRatings.isEmpty == false{
+            if !safetyRatings.isEmpty {
                 HStack{
                     Text("\(safetyRatings.first!.name) Safety Ratings").onAppear{
                     self.mapSafetyScore()
                     }
                     Spacer()
-                    Image(systemName: "eye").onTapGesture{
+                    if !showSafety {
+                        Image(systemName: "plus.circle").onTapGesture{
                         self.showSafety.toggle()
+                        }
+                    }else{
+                        Image(systemName: "minus.circle").onTapGesture{
+                        self.showSafety.toggle()
+                        }
                     }
                     
                 }
@@ -167,40 +176,51 @@ struct TripView: View {
                             Text(self.lgbt)
                         }
                     }.frame(height: 250)
+                        // add animation
                 }
-            
-            Text("Starred Places")
-            
-            List {
-                ForEach(favourites, id:\.self) { item in
-                    NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: accom, currTrip: trip)){
-                        VStack{
-                            HStack{
-                                Text(item.name ?? "Unknown")
-                                Spacer()
-                                Image(systemName: "star.fill").onTapGesture{
-                                    PersistenceController.shared.delete(item)
+            }
+            if covidAvailable{
+                
+                NavigationLink(destination: CovidDataView(covidResults: self.covidResults!)){
+                    HStack{
+                        Text("Covid Restrictions and Information")
+                        Spacer()
+                    
+                    }
+                }
+            }
+                    
+            Section{
+                Text("Starred Places")
+        
+                List {
+                    ForEach(favourites, id:\.self) { item in
+                        NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: accom, currTrip: trip)){
+                            VStack{
+                                HStack{
+                                    Text(item.name ?? "Unknown")
+                                    Spacer()
+                                    Image(systemName: "star.fill").onTapGesture{
+                                        PersistenceController.shared.delete(item)
+                                    }
+                                
                                 }
-                            
+                                HStack{
+                                    Text("Distance from accomodation")
+                                    Spacer()
+                                    Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: trip.lat, longitude: trip.long))))))))) m")
+                                }
+                            }.onTapGesture{ //not working
+                                    //accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                             }
-                            HStack{
-                                Text("Distance from accomodation")
-                                Spacer()
-                                Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: trip.lat, longitude: trip.long))))))))) m")
-                            }
-                        }.onTapGesture{ //not working
-                                accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                         }
                     }
                 }
             }
         }
-    
-  
-            
-        }
     }
 }
+
 
 struct SafetyRating {
     var safetyScores = SafetyScore()
@@ -214,3 +234,4 @@ struct SafetyScore: Decodable{
     var women = 0
     var overall = 0
 }
+

@@ -31,6 +31,8 @@
 		1DDB6E7F273C4ED50079881B /* Amadeus in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDB6E7E273C4ED50079881B /* Amadeus */; };
 		1DDB6E88273C8C480079881B /* Favourite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E86273C8C480079881B /* Favourite+CoreDataClass.swift */; };
 		1DDB6E89273C8C480079881B /* Favourite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E87273C8C480079881B /* Favourite+CoreDataProperties.swift */; };
+		1DDB6E8B273F1A610079881B /* CovidData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E8A273F1A610079881B /* CovidData.swift */; };
+		1DDB6E8D273FEA620079881B /* CovidDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E8C273FEA620079881B /* CovidDataView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		1DDB6E2E2739D3810079881B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		1DDB6E86273C8C480079881B /* Favourite+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1DDB6E87273C8C480079881B /* Favourite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1DDB6E8A273F1A610079881B /* CovidData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidData.swift; sourceTree = "<group>"; };
+		1DDB6E8C273FEA620079881B /* CovidDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				1DDB6E132739B6150079881B /* Model.xcdatamodeld */,
+				1DDB6E8A273F1A610079881B /* CovidData.swift */,
 				1DDB6E2E2739D3810079881B /* MapViewController.swift */,
 				1DDB6E1A2739C4690079881B /* AddTripView.swift */,
 				1DDB6E1C2739C4930079881B /* MapSearch.swift */,
@@ -106,6 +111,7 @@
 				1DDB6E092739A0EA0079881B /* ProfileView.swift */,
 				1DDB6E0B2739A0FC0079881B /* TripsView.swift */,
 				1DDB6E2A2739C6D50079881B /* TripView.swift */,
+				1DDB6E8C273FEA620079881B /* CovidDataView.swift */,
 				1DDB6E0D2739A1090079881B /* MapView.swift */,
 				1DDB6E2C2739D34B0079881B /* MapSearchView.swift */,
 				1DDB6DF427399ED80079881B /* ContentView.swift */,
@@ -207,6 +213,7 @@
 				1DDB6DFC27399ED90079881B /* Persistence.swift in Sources */,
 				1DDB6E292739C6520079881B /* Trip+CoreDataProperties.swift in Sources */,
 				1DDB6DFF27399ED90079881B /* TravelWell.xcdatamodeld in Sources */,
+				1DDB6E8B273F1A610079881B /* CovidData.swift in Sources */,
 				1DDB6DF527399ED80079881B /* ContentView.swift in Sources */,
 				1DDB6E282739C6520079881B /* Trip+CoreDataClass.swift in Sources */,
 				1DDB6E1D2739C4930079881B /* MapSearch.swift in Sources */,
@@ -220,6 +227,7 @@
 				1DDB6E182739BA2E0079881B /* AppProfile+CoreDataClass.swift in Sources */,
 				1DDB6DF327399ED80079881B /* TravelWellApp.swift in Sources */,
 				1DDB6E152739B6150079881B /* Model.xcdatamodeld in Sources */,
+				1DDB6E8D273FEA620079881B /* CovidDataView.swift in Sources */,
 				1DDB6E0E2739A1090079881B /* MapView.swift in Sources */,
 				1DDB6E0C2739A0FC0079881B /* TripsView.swift in Sources */,
 				1DDB6E192739BA2E0079881B /* AppProfile+CoreDataProperties.swift in Sources */,

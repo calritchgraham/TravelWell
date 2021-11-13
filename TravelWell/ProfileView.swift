@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ProfileView: View {
-    @State var name: String = ""
+    @State var name = ""
     @State private var selectedTZ = ""
     @State var knownTimeZoneIdentifiers = TimeZone.knownTimeZoneIdentifiers
     @State private var sunday = false
@@ -22,7 +22,6 @@ struct ProfileView: View {
     @State private var startTime = Date()
     @State private var endTime = Date()
     @State private var currTime = Date()
-    @State private var showingAlert = false
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: AppProfile.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \AppProfile.timeZone, ascending: true)]
@@ -98,25 +97,25 @@ struct ProfileView: View {
         profile.endTime = endTime
         profile.startTime = startTime
         
-        if sunday{
+        if self.sunday{
             profile.sunday = true
         }
-        if monday{
+        if self.monday{
             profile.monday = true
         }
-        if tuesday{
+        if self.tuesday{
             profile.tuesday = true
         }
-        if wednesday{
+        if self.wednesday{
             profile.wednesday = true
         }
-        if thursday{
+        if self.thursday{
             profile.thursday = true
         }
-        if friday{
+        if self.friday{
             profile.friday = true
         }
-        if saturday{
+        if self.saturday{
             profile.saturday = true
         }
         
