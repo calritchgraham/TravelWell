@@ -85,7 +85,7 @@ struct ProfileView: View {
             self.startTime = profile.first!.startTime!
             self.endTime = profile.first!.endTime!
             
-            PersistenceController.shared.delete(profile.first!)
+            //PersistenceController.shared.delete(profile.first!)
         }
     }
     

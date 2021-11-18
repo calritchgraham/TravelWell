@@ -27,11 +27,12 @@
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="outbound" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="timeZone" optional="YES" attributeType="String"/>
         <relationship name="favourite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Favourite" inverseName="trip" inverseEntity="Favourite"/>
     </entity>
     <elements>
-        <element name="Trip" positionX="-54" positionY="72" width="128" height="149"/>
-        <element name="Favourite" positionX="-36" positionY="99" width="128" height="89"/>
         <element name="AppProfile" positionX="-18" positionY="81" width="128" height="194"/>
+        <element name="Favourite" positionX="-36" positionY="99" width="128" height="89"/>
+        <element name="Trip" positionX="-54" positionY="72" width="128" height="164"/>
     </elements>
 </model>

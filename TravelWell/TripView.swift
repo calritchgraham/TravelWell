@@ -12,15 +12,10 @@ import MapKit
 import Amadeus
 import SwiftyJSON
 
-/*
- Safety Info
- Covid Info
- 
- */
 struct TripView: View {
     var amadeus = Amadeus(
-        client_id: "TycnndCzMy2REAGklAoOnPGpFPPyjzeh",
-        client_secret: "iGrOgfawkDyEjm5O"
+        client_id: "as", //"WXIrygihAwXYGBTYB6UGoim91OAPQsdr",
+        client_secret: "FNka9GNxUSuGreX2"
     )
     @State var overall = ""
     @State var theft = ""
@@ -31,7 +26,7 @@ struct TripView: View {
     @State var trip : Trip
     @State var accom = [Location]()
     @State var region = MKCoordinateRegion()
-    @State var filteredFavs = Set<String>()
+    @State var filteredFavs = Set<Favourite>()
     @State var safetyRatings = [SafetyRating]()
     @State var showSafety = false
     @State var covidAvailable = false
@@ -41,7 +36,7 @@ struct TripView: View {
     @FetchRequest(entity: Favourite.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Favourite.name, ascending: true)]
                   
-                        ) var favourites: FetchedResults<Favourite>
+                        ) var favourites: FetchedResults<Favourite>  //sort by trip
     
     func mapInitiate(){
         let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: trip.lat, longitude: trip.long))
@@ -58,8 +53,16 @@ struct TripView: View {
                     self.updateSR(response: response)
                 }
             case .failure(let error):
-                print("Error fetching nearby places - \(error.localizedDescription)")
+                print("Error fetching safety ratings - \(error.localizedDescription)")
                 return
+            }
+        }
+    }
+    
+    func filterFavourite(){
+        for starred in favourites{
+            if starred.trip == trip {
+                filteredFavs.insert(starred)
             }
         }
     }
@@ -118,6 +121,9 @@ struct TripView: View {
     
     var body: some View {
         VStack{
+            NavigationLink(destination: JetLagView(trip: trip)){
+                Text("Jet Lag")
+            }
             Text(trip.accomName!)
             
             NavigationLink(destination: MapView(region: region, accom: accom, currTrip: trip)){
@@ -130,6 +136,7 @@ struct TripView: View {
                 self.getSafetyRating(trip: trip)
                 self.getCovidRestrictions(country: trip.destination!)
                 self.mapInitiate()
+                self.filterFavourite()
             }
             if !safetyRatings.isEmpty {
                 HStack{
@@ -194,7 +201,7 @@ struct TripView: View {
                 Text("Starred Places")
         
                 List {
-                    ForEach(favourites, id:\.self) { item in
+                    ForEach(Array(filteredFavs), id:\.self) { item in
                         NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: accom, currTrip: trip)){
                             VStack{
                                 HStack{
@@ -227,7 +234,7 @@ struct SafetyRating {
     var name = ""
 }
 
-struct SafetyScore: Decodable{
+struct SafetyScore{
     var lgbtq = 0
     var theft = 0
     var physicalHarm = 0

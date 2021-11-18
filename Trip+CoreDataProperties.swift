@@ -2,7 +2,7 @@
 //  Trip+CoreDataProperties.swift
 //  TravelWell
 //
-//  Created by Callum Graham on 08/11/2021.
+//  Created by Callum Graham on 18/11/2021.
 //
 //
 
@@ -16,13 +16,32 @@ extension Trip {
         return NSFetchRequest<Trip>(entityName: "Trip")
     }
 
-    @NSManaged public var inbound: Date?
-    @NSManaged public var outbound: Date?
     @NSManaged public var accomAddress: String?
     @NSManaged public var accomName: String?
     @NSManaged public var destination: String?
+    @NSManaged public var inbound: Date?
     @NSManaged public var lat: Double
     @NSManaged public var long: Double
+    @NSManaged public var outbound: Date?
+    @NSManaged public var timeZone: String?
+    @NSManaged public var favourite: NSSet?
+
+}
+
+// MARK: Generated accessors for favourite
+extension Trip {
+
+    @objc(addFavouriteObject:)
+    @NSManaged public func addToFavourite(_ value: Favourite)
+
+    @objc(removeFavouriteObject:)
+    @NSManaged public func removeFromFavourite(_ value: Favourite)
+
+    @objc(addFavourite:)
+    @NSManaged public func addToFavourite(_ values: NSSet)
+
+    @objc(removeFavourite:)
+    @NSManaged public func removeFromFavourite(_ values: NSSet)
 
 }
 

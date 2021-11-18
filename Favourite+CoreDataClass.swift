@@ -2,7 +2,7 @@
 //  Favourite+CoreDataClass.swift
 //  TravelWell
 //
-//  Created by Callum Graham on 10/11/2021.
+//  Created by Callum Graham on 18/11/2021.
 //
 //
 

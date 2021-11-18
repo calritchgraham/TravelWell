@@ -2,7 +2,7 @@
 //  Favourite+CoreDataProperties.swift
 //  TravelWell
 //
-//  Created by Callum Graham on 10/11/2021.
+//  Created by Callum Graham on 18/11/2021.
 //
 //
 
@@ -16,9 +16,9 @@ extension Favourite {
         return NSFetchRequest<Favourite>(entityName: "Favourite")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var lat: Double
     @NSManaged public var long: Double
+    @NSManaged public var name: String?
     @NSManaged public var trip: Trip?
 
 }

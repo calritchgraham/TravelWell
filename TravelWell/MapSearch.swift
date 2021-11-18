@@ -44,7 +44,7 @@ class MapSearch : NSObject, ObservableObject {
                 trip.lat = (placemark?.location?.coordinate.latitude)! //handle error here of not found
                 trip.long = (placemark?.location?.coordinate.longitude)!
                 trip.destination = placemark?.isoCountryCode
-                print(trip.destination ?? "not foiund")
+                trip.timeZone = placemark?.timeZone?.identifier
                 PersistenceController.shared.save()
             }
         }
