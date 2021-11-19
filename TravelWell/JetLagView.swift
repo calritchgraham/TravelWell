@@ -37,28 +37,74 @@ struct JetLagView: View {
             easternTravel = true
             diffInSeconds = abs(diffInSeconds)
         }
-        
-
     }
     
     var body: some View {
         VStack{
-            if diffInSeconds == 0{
+            if diffInSeconds == 0{  //check timezones in paper 5??
                 Text("There is no time difference between your home and destination")
             }else{
                 Text("The time difference between your home and destination is \(diffInSeconds/60/60) hours")
-            
+                
+                if today < twoDaysBefore{
+                    if easternTravel{
+                        //Text("\(trip?.outbound) : blah blah blah")  //show date and month - 2/3 hours earlier to bed
+                        // outbound - 1 and outbound -2
+                    } else {
+                        //Text("\(trip?.outbound) : blah blah blah")  //show date and month
+                        // outbound - 1 and outbound -2
+                    }
+                    
+                }else if today == twoDaysBefore{
+                    if easternTravel{
+                        Text("Today : Blah blah blah")
+                        Text("Tomorrow : Blah blah blah")
+                    } else {
+                        //Text("\(trip?.outbound) : blah blah blah")  //show date and month
+                    }
+                } else if today == oneDayBefore{
+                    if easternTravel{
+                        // today
+                    }else {
+                        //today
+                    }
+                }
+                
+                if today > (trip?.outbound)!{
+                    if easternTravel{
+                        // on day of arrival earlier, arrive hydrated, avoid alcohol and caffeine during travel
+                        // exposure to bright light in the morning and 20-30min nap on arrival
+                    } else  {
+                        // today - blah blah blah
+                    }
+                } else if (trip?.outbound)! == today{
+                    if easternTravel{
+                        //today blah blah blah
+                    } else {
+                        //today blah blah blah
+                    }
+                }
+                
+                if today < dayAfter {
+                    if easternTravel{
+                        //if eastern, exposure to light in the morning
+                    } else {
+                        //if eastern, exposure to light in the morning
+                    }
+                }else if today == dayAfter {
+                    if easternTravel{
+                        //if eastern, exposure to light in the morning
+                    } else {
+                        
+                    }
+                }
+          
+                
+                
                 
             }
-           
-                // if today == two days before show today, if today == ondeday before show nothing
-                    //if eastern - earlier
-                // if oneday == today show today, if today == outbound show nothing
-                    //if eastern - earlier, arrive hydrated, avoid alcohol and caffeine during travel
-                // if today == outbound show today otherwise show trip.outbound
-                    //if eastern, exposire to bright light in the morning, take a 20-30min nap on arrival
-                // if dayAfter == today show today
-                    //if eastern, exposure to light in the morning
+            // grey out after event??
+           // same for inbound
                 
             Text("This advice is based on research by Dr Robert L Slack, published in The New England Journal of Medicine")
       
