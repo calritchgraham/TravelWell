@@ -27,6 +27,8 @@ extension AppProfile {
     @NSManaged public var timeZone: String?
     @NSManaged public var tuesday: Bool
     @NSManaged public var wednesday: Bool
+    @NSManaged public var localCurr: String
+    @NSManaged public var perDiem: Double
 
 }
 

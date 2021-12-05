@@ -41,7 +41,7 @@ struct MapSearchView: View {
         for item in favourites{
             if item.trip == currTrip{
                 self.filteredFavs.insert(item.name!)
-                //print(item.name)
+                
             }
         }
     }

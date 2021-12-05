@@ -31,7 +31,7 @@ struct TripView: View {
     @State var showSafety = false
     @State var covidAvailable = false
     @State var showCovid = false
-    @State var covidResults : Welcome?
+    @State var covidResults : CovidData?
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Favourite.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Favourite.name, ascending: true)]
@@ -89,7 +89,7 @@ struct TripView: View {
             switch result{
             case .success(let response):
                 let data = Data(response.body.utf8)
-                covidResults = try! JSONDecoder().decode(Welcome.self, from: data)  //deal with nil values
+                covidResults = try! JSONDecoder().decode(CovidData.self, from: data)  //deal with nil values
                 self.covidAvailable = true
             case.failure(let error):
                 print("Error covid info - \(error.localizedDescription)")

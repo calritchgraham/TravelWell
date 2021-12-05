@@ -9,7 +9,7 @@ import SwiftUI
 import WebKit
 
 struct CovidDataView: View {
-    @State var covidResults : Welcome
+    @State var covidResults : CovidData
     
     
     var body: some View {   //fix force unwrap

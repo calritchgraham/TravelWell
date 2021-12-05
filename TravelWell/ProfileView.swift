@@ -22,6 +22,9 @@ struct ProfileView: View {
     @State private var startTime = Date()
     @State private var endTime = Date()
     @State private var currTime = Date()
+    @State private var localCurr = ""
+    @State private var perDiem = ""
+    var isoCurrencyCodes = Locale.commonISOCurrencyCodes
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: AppProfile.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \AppProfile.timeZone, ascending: true)]
@@ -43,6 +46,19 @@ struct ProfileView: View {
                   }
                 }.frame(height: 100.0)
                    
+                Form {
+                  Picker("Local Currency", selection: $localCurr) {
+                      ForEach(isoCurrencyCodes, id: \.self) {
+                          Text($0)
+                      }
+                  }
+                }.frame(height: 100.0)
+                
+                Form {
+                    TextField("Per Diem Amount", text: $perDiem)
+                }.keyboardType(.decimalPad)
+                .frame(height: 50.0)
+                
                 Group{
                     Text("Please select the days of the week you work.")
                     Toggle("Sunday", isOn: $sunday)
@@ -59,7 +75,7 @@ struct ProfileView: View {
                 Spacer()
               
       
-            }.onDisappear{
+            }.onDisappear{ // change this?
                 if(name != "" && selectedTZ != "" && startTime != currTime && endTime != currTime){
                     self.saveProfile()
                 }
@@ -96,6 +112,8 @@ struct ProfileView: View {
         profile.timeZone = selectedTZ
         profile.endTime = endTime
         profile.startTime = startTime
+        profile.localCurr = localCurr
+        profile.perDiem = Double(perDiem) ?? 0
         
         if self.sunday{
             profile.sunday = true

@@ -3,8 +3,10 @@
     <entity name="AppProfile" representedClassName=".AppProfile" syncable="YES">
         <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="friday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="localCurr" optional="YES" attributeType="String"/>
         <attribute name="monday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="perDiem" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="saturday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="sunday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -12,6 +14,12 @@
         <attribute name="timeZone" optional="YES" attributeType="String"/>
         <attribute name="tuesday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="wednesday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Expense" representedClassName=".Expense" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="occasion" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Favourite" representedClassName=".Favourite" syncable="YES">
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -31,8 +39,9 @@
         <relationship name="favourite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Favourite" inverseName="trip" inverseEntity="Favourite"/>
     </entity>
     <elements>
-        <element name="AppProfile" positionX="-18" positionY="81" width="128" height="194"/>
+        <element name="AppProfile" positionX="-18" positionY="81" width="128" height="224"/>
         <element name="Favourite" positionX="-36" positionY="99" width="128" height="89"/>
         <element name="Trip" positionX="-54" positionY="72" width="128" height="164"/>
+        <element name="Expense" positionX="-36" positionY="171" width="128" height="89"/>
     </elements>
 </model>

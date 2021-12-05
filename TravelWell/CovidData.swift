@@ -7,7 +7,7 @@
 import Foundation
 
 // MARK: - Welcome
-struct Welcome: Codable {
+struct CovidData: Codable {
     let data: DataClass
 }
 

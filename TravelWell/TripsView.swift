@@ -12,8 +12,8 @@ struct TripsView: View {
             let trip = trips[index]
             PersistenceController.shared.delete(trip)
         }
-        
     }
+    
     var body: some View {
         NavigationView{
             VStack{
