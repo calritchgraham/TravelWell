@@ -7,8 +7,6 @@
 
 import CoreData
 
-import CoreData
-
 struct PersistenceController{
     
     static let shared = PersistenceController()
@@ -30,6 +28,7 @@ struct PersistenceController{
         if context.hasChanges {             //don't save if no changes
             do {
                 try context.save()
+                
                 completion(nil)
             } catch {
                 completion(error)

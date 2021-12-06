@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct TravelWellApp: App {
     let persistenceController = PersistenceController.shared
-    //let mapViewController = MapViewController()
 
     var body: some Scene {
         WindowGroup {

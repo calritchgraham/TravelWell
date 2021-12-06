@@ -1,17 +1,16 @@
 //
-//  MapSearch.swift
-//  diss
+//  AddTripViewModel.swift
+//  TravelWell
 //
-//  Created by Callum Graham on 04/11/2021.
+//  Created by Callum Graham on 06/12/2021.
 //
 
 import Foundation
 import MapKit
 import Combine
-import CoreLocation
 import CoreData
 
-class MapSearch : NSObject, ObservableObject {
+final class AddTripViewModel : NSObject, ObservableObject {
     @Published var locationResults : [MKLocalSearchCompletion] = []
     @Published var searchTerm = ""
     private var cancellables : Set<AnyCancellable> = []
@@ -36,22 +35,6 @@ class MapSearch : NSObject, ObservableObject {
             .store(in: &cancellables)
     }
     
-    func coordsFromLocation(location: MKLocalSearchCompletion, trip: Trip)  {
-            let geocoder = CLGeocoder()
-            geocoder.geocodeAddressString(location.title + " " + location.subtitle) {
-                placemarks, error in
-                let placemark = placemarks?.first
-                trip.lat = (placemark?.location?.coordinate.latitude)! //handle error here of not found
-                trip.long = (placemark?.location?.coordinate.longitude)!
-                trip.destination = placemark?.isoCountryCode
-                trip.timeZone = placemark?.timeZone?.identifier
-                PersistenceController.shared.save()
-            }
-        }
-    
-
-    
-    
     func searchTermToResults(searchTerm: String) -> Future<[MKLocalSearchCompletion], Error> {
         Future { promise in
             self.searchCompleter.queryFragment = searchTerm
@@ -62,7 +45,7 @@ class MapSearch : NSObject, ObservableObject {
     
 
 
-extension MapSearch : MKLocalSearchCompleterDelegate {
+extension AddTripViewModel : MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
             currentPromise?(.success(completer.results))
         }

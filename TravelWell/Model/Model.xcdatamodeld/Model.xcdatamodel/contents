@@ -3,6 +3,7 @@
     <entity name="AppProfile" representedClassName=".AppProfile" syncable="YES">
         <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="friday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="hasPD" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="localCurr" optional="YES" attributeType="String"/>
         <attribute name="monday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -39,9 +40,9 @@
         <relationship name="favourite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Favourite" inverseName="trip" inverseEntity="Favourite"/>
     </entity>
     <elements>
-        <element name="AppProfile" positionX="-18" positionY="81" width="128" height="224"/>
+        <element name="AppProfile" positionX="-18" positionY="81" width="128" height="239"/>
+        <element name="Expense" positionX="-36" positionY="171" width="128" height="89"/>
         <element name="Favourite" positionX="-36" positionY="99" width="128" height="89"/>
         <element name="Trip" positionX="-54" positionY="72" width="128" height="164"/>
-        <element name="Expense" positionX="-36" positionY="171" width="128" height="89"/>
     </elements>
 </model>

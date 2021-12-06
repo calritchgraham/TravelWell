@@ -8,7 +8,6 @@
 import Foundation
 import MapKit
 import CoreLocation
-import Amadeus
 
 final class MapViewController: NSObject, ObservableObject, CLLocationManagerDelegate {
     

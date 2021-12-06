@@ -4,19 +4,14 @@ import MapKit
 struct MapSearchView: View {
     @State var searchTerm : String
     @State var region : MKCoordinateRegion
-    let request = MKLocalSearch.Request()
     @State var results = [MKMapItem]()
     @State var accom  : [Location]
-    let geocoder = CLGeocoder()
+    @State var favourites = [String]()
     @State var currTrip : Trip
-    @State var filteredFavs = Set<String>()
     @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: Favourite.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \Favourite.name, ascending: true)]
-                  
-                        ) var favourites: FetchedResults<Favourite>
-    
+   
     func search(){
+        let request = MKLocalSearch.Request()
         request.region = region
         request.naturalLanguageQuery = searchTerm
         let search = MKLocalSearch(request: request)
@@ -37,24 +32,27 @@ struct MapSearchView: View {
         })
     }
     
-    func favouriteFilter(){
-        for item in favourites{
-            if item.trip == currTrip{
-                self.filteredFavs.insert(item.name!)
-                
+    func populateFavourites() {
+        for fav in Array(currTrip.favourite as! Set<Favourite>){
+            favourites.append(fav.name!)
+        }
+    }
+    
+    func deleteFavourite(name : String) {
+        for fav in Array(currTrip.favourite as! Set<Favourite>){
+            if fav.name == name {
+                PersistenceController.shared.delete(fav)
+                for i in 0...favourites.count-1{
+                    if favourites[i] == name {
+                        favourites.remove(at: i)
+                    }                }
+    
+                print(favourites)
             }
         }
     }
     
-    func favouriteDelete(item: MKMapItem){
-        for favourite in favourites{
-            if favourite.name == item.name{
-                let favouriteDelete = favourite
-                PersistenceController.shared.delete(favouriteDelete)
-                filteredFavs.remove(item.name!)
-            }
-        }
-    }
+
     
     func favouriteSave(item: MKMapItem){
         let favourite = Favourite(context: managedObjectContext)
@@ -63,7 +61,8 @@ struct MapSearchView: View {
         favourite.long = (item.placemark.location?.coordinate.longitude)!
         favourite.name = item.placemark.name
         PersistenceController.shared.save()
-        filteredFavs.insert(item.name!)
+        favourites.append(item.name!)
+        print(favourites)
     }
     var body: some View {
             VStack{
@@ -73,22 +72,25 @@ struct MapSearchView: View {
                             HStack{
                                 Text(item.name ?? "Unknown")
                                 Spacer()
-                                if filteredFavs.contains(item.name!){
-                                    Image(systemName: "star.fill").onTapGesture{
-                                        self.favouriteDelete(item: item)
-                                        
+                                if favourites.isEmpty {
+                                    Image(systemName: "star").onTapGesture{
+                                        self.favouriteSave(item: item)
                                     }
-                                        
-                                }else{
+                                } else if favourites.contains(item.name!){
+                                    Image(systemName: "star.fill").onTapGesture{
+                                        deleteFavourite(name: item.name!)
+                                    }
+                                } else {
                                     Image(systemName: "star").onTapGesture{
                                         self.favouriteSave(item: item)
                                     }
                                 }
-                            }
-                    }.onDisappear{ //not working
-                        accom = [Location]()
+                        }
+                            }.onAppear{
+                                self.populateFavourites()
+                                print(favourites)
+                            }.onDisappear{ //not working
                         accom.append(Location(coordinate: item.placemark.coordinate))
-                        print("appended")
                 }
                 }
             }
@@ -96,8 +98,7 @@ struct MapSearchView: View {
 
             }.onAppear{
                 self.search()
-                self.favouriteFilter()
             }
     }
 }
-    
+                                        

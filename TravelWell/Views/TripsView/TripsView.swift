@@ -1,5 +1,5 @@
 import SwiftUI
-import CoreData
+
 
 struct TripsView: View {
     
@@ -10,7 +10,7 @@ struct TripsView: View {
     func removeTrip(at offsets: IndexSet){
         for index in offsets {
             let trip = trips[index]
-            PersistenceController.shared.delete(trip)
+            PersistenceController.shared.delete(trip) //fix
         }
     }
     
@@ -21,22 +21,19 @@ struct TripsView: View {
                 List {
                     ForEach(trips, id:\.self) { currentTrip in
                         NavigationLink(destination: TripView(trip: currentTrip)){
-                            Text("\(currentTrip.accomName ?? "Unknown")")
+                            Text("\(currentTrip.accomName ?? "Unknown") , \(currentTrip.destination ?? "Unknown")")
+                            
                         }
                     }.onDelete(perform: removeTrip)
                 }
-                
                 NavigationLink(destination: AddTripView()){
                   Text("Add a Trip")
                 }
+                
+                Spacer()
             }
         }
     }
         
 }
 
-struct TripsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TripsView()
-    }
-}

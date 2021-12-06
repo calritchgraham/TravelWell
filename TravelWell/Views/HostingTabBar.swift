@@ -10,9 +10,8 @@ import SwiftUI
 struct HostingTabBar: View {
     private enum Tab: Hashable {
             case home
-            case explore
-            case user
-            case settings
+            case trips
+            case profile
         }
         
         @State private var selectedTab: Tab = .home
@@ -29,22 +28,11 @@ struct HostingTabBar: View {
                 .tabItem {
                     Image(systemName: "airplane")
                 }
-//            MapView()
-//                .tag(2)
-//                .tabItem {
-//                    Image(systemName: "map.fill")
-//                }
             ProfileView()
-                .tag(3)
+                .tag(2)
                 .tabItem {
                     Image(systemName: "person")
                 }
         }
-    }
-}
-
-struct HostingTabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        HostingTabBar()
     }
 }
