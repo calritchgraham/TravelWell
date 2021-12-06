@@ -14,6 +14,8 @@
 		1DAD27B9275DF86A00F8773D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B8275DF86A00F8773D /* ProfileViewModel.swift */; };
 		1DAD27BB275DFA5600F8773D /* MapSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27BA275DFA5600F8773D /* MapSearchViewModel.swift */; };
 		1DAD27BD275DFBC000F8773D /* AddTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27BC275DFBC000F8773D /* AddTripViewModel.swift */; };
+		1DAD27BF275E066200F8773D /* LocationServicesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27BE275E066200F8773D /* LocationServicesModel.swift */; };
+		1DAD27C1275E073D00F8773D /* JetLagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27C0275E073D00F8773D /* JetLagViewModel.swift */; };
 		1DB96CEF275B2D39004FF2BD /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB96CED275B2D39004FF2BD /* Expense+CoreDataClass.swift */; };
 		1DB96CF0275B2D39004FF2BD /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB96CEE275B2D39004FF2BD /* Expense+CoreDataProperties.swift */; };
 		1DDB6DF327399ED80079881B /* TravelWellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6DF227399ED80079881B /* TravelWellApp.swift */; };
@@ -28,10 +30,8 @@
 		1DDB6E0E2739A1090079881B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E0D2739A1090079881B /* MapView.swift */; };
 		1DDB6E152739B6150079881B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E132739B6150079881B /* Model.xcdatamodeld */; };
 		1DDB6E1B2739C4690079881B /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E1A2739C4690079881B /* AddTripView.swift */; };
-		1DDB6E1D2739C4930079881B /* MapSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E1C2739C4930079881B /* MapSearch.swift */; };
 		1DDB6E2B2739C6D50079881B /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E2A2739C6D50079881B /* TripView.swift */; };
 		1DDB6E2D2739D34B0079881B /* MapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E2C2739D34B0079881B /* MapSearchView.swift */; };
-		1DDB6E2F2739D3810079881B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E2E2739D3810079881B /* MapViewController.swift */; };
 		1DDB6E7F273C4ED50079881B /* Amadeus in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDB6E7E273C4ED50079881B /* Amadeus */; };
 		1DDB6E8B273F1A610079881B /* CovidData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E8A273F1A610079881B /* CovidData.swift */; };
 		1DDB6E8D273FEA620079881B /* CovidDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6E8C273FEA620079881B /* CovidDataView.swift */; };
@@ -56,6 +56,8 @@
 		1DAD27B8275DF86A00F8773D /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		1DAD27BA275DFA5600F8773D /* MapSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewModel.swift; sourceTree = "<group>"; };
 		1DAD27BC275DFBC000F8773D /* AddTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewModel.swift; sourceTree = "<group>"; };
+		1DAD27BE275E066200F8773D /* LocationServicesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesModel.swift; sourceTree = "<group>"; };
+		1DAD27C0275E073D00F8773D /* JetLagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetLagViewModel.swift; sourceTree = "<group>"; };
 		1DB96CED275B2D39004FF2BD /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1DB96CEE275B2D39004FF2BD /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1DDB6DEF27399ED80079881B /* TravelWell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelWell.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,10 +73,8 @@
 		1DDB6E0D2739A1090079881B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		1DDB6E142739B6150079881B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1DDB6E1A2739C4690079881B /* AddTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripView.swift; sourceTree = "<group>"; };
-		1DDB6E1C2739C4930079881B /* MapSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearch.swift; sourceTree = "<group>"; };
 		1DDB6E2A2739C6D50079881B /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		1DDB6E2C2739D34B0079881B /* MapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchView.swift; sourceTree = "<group>"; };
-		1DDB6E2E2739D3810079881B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		1DDB6E8A273F1A610079881B /* CovidData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidData.swift; sourceTree = "<group>"; };
 		1DDB6E8C273FEA620079881B /* CovidDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDataView.swift; sourceTree = "<group>"; };
 		1DDB6E8E27465FA70079881B /* JetLagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetLagView.swift; sourceTree = "<group>"; };
@@ -172,8 +172,6 @@
 				1DF2D284275D7CE100AD5E44 /* HomeView */,
 				1DF2D283275D7BDB00AD5E44 /* AddTripView */,
 				1DF2D27F275D72CA00AD5E44 /* TripView */,
-				1DDB6E2E2739D3810079881B /* MapViewController.swift */,
-				1DDB6E1C2739C4930079881B /* MapSearch.swift */,
 				1DDB6E0727399FFB0079881B /* HostingTabBar.swift */,
 			);
 			path = Views;
@@ -204,6 +202,7 @@
 			children = (
 				1DDB6E0527399F5C0079881B /* HomeView.swift */,
 				1D3995F7275CD9F200B8E433 /* HomeViewModel.swift */,
+				1DAD27BE275E066200F8773D /* LocationServicesModel.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -212,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				1DDB6E8E27465FA70079881B /* JetLagView.swift */,
+				1DAD27C0275E073D00F8773D /* JetLagViewModel.swift */,
 			);
 			path = JetLagView;
 			sourceTree = "<group>";
@@ -344,10 +344,9 @@
 				1DDB6E8F27465FA70079881B /* JetLagView.swift in Sources */,
 				1DDB6E8B273F1A610079881B /* CovidData.swift in Sources */,
 				1DF2D281275D730D00AD5E44 /* SafetyRatings.swift in Sources */,
-				1DDB6E1D2739C4930079881B /* MapSearch.swift in Sources */,
 				1DAD27B7275DF57900F8773D /* ExchangeRates.swift in Sources */,
-				1DDB6E2F2739D3810079881B /* MapViewController.swift in Sources */,
 				1DDB6E0627399F5C0079881B /* HomeView.swift in Sources */,
+				1DAD27C1275E073D00F8773D /* JetLagViewModel.swift in Sources */,
 				1D3995F8275CD9F200B8E433 /* HomeViewModel.swift in Sources */,
 				1DAD27BB275DFA5600F8773D /* MapSearchViewModel.swift in Sources */,
 				1DDB6EA12746702A0079881B /* AppProfile+CoreDataProperties.swift in Sources */,
@@ -356,6 +355,7 @@
 				1DB96CEF275B2D39004FF2BD /* Expense+CoreDataClass.swift in Sources */,
 				1DDB6E9E2746702A0079881B /* Favourite+CoreDataClass.swift in Sources */,
 				1DDB6E0827399FFB0079881B /* HostingTabBar.swift in Sources */,
+				1DAD27BF275E066200F8773D /* LocationServicesModel.swift in Sources */,
 				1DDB6E0A2739A0EA0079881B /* ProfileView.swift in Sources */,
 				1DDB6E2B2739C6D50079881B /* TripView.swift in Sources */,
 				1DDB6E2D2739D34B0079881B /* MapSearchView.swift in Sources */,

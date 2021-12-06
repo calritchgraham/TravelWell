@@ -23,7 +23,7 @@ final class TripViewModel: ObservableObject{
     @Published var physicalHarm = ""
     @Published var women = ""
     @Published var lgbt = ""
-    let mapViewController = MapViewController()
+    let locationServicesModel = LocationServicesModel()
     @Published var trip = Trip()
     @Published var accom = [Location]()
     @Published var region = MKCoordinateRegion()
@@ -40,6 +40,7 @@ final class TripViewModel: ObservableObject{
     
     
     func mapInitiate(){
+        locationServicesModel.checkLocationServicesEnabled()
         let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: trip.lat, longitude: trip.long))
         self.accom.append(accomPin)
         self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: trip.lat, longitude: trip.long), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))

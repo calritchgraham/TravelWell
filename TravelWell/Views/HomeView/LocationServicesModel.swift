@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 import CoreLocation
 
-final class MapViewController: NSObject, ObservableObject, CLLocationManagerDelegate {
+final class LocationServicesModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     var locationManager : CLLocationManager?
    

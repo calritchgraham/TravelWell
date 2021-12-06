@@ -16,7 +16,7 @@ final class HomeViewModel : ObservableObject{
     
     var managedObjectContext = PersistenceController.shared.container.viewContext
     @Published var onATrip = false
-    @StateObject private var mapViewController = MapViewController()
+    @StateObject private var locationServicesModel = LocationServicesModel()
     @Published var region = MKCoordinateRegion()
     @Published var currTrip = Trip()
     @Published var accom = [Location]()
@@ -123,7 +123,7 @@ final class HomeViewModel : ObservableObject{
     
     func mapInitiate(){
          if onATrip == true{
-             mapViewController.checkLocationServicesEnabled()
+             locationServicesModel.checkLocationServicesEnabled()
              let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: currTrip.lat, longitude: currTrip.long))
              self.accom.append(accomPin)
              currCoords = CLLocationCoordinate2D(latitude: currTrip.lat, longitude: currTrip.long)
