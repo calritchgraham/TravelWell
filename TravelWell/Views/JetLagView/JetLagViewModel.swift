@@ -19,6 +19,7 @@ final class JetLagViewModel : ObservableObject {
     @Published var twoDaysBefore = Date()
     @Published var dayAfter = Date()
     @Published var today = Date()
+    @Published var jetLagAdvice : JetLagAdvice?
     
     func setPersistentData(profile: FetchedResults<AppProfile>){
         self.profile = profile
@@ -36,13 +37,12 @@ final class JetLagViewModel : ObservableObject {
             diffInSeconds = tripTZ!.secondsFromGMT() - homeTZ!.secondsFromGMT()
             oneDayBefore = (trip?.outbound?.advanced(by: oneDayInSecs))!
             twoDaysBefore = (trip?.outbound?.advanced(by: -oneDayInSecs).advanced(by: -oneDayInSecs))!
-            dayAfter = (trip?.outbound?.advanced(by: abs(oneDayInSecs)))!
         }
         
         if (diffInSeconds < 0){
             easternTravel = true
             diffInSeconds = abs(diffInSeconds)
         }
+        jetLagAdvice = JetLagAdvice(easternTravel: easternTravel)
     }
-    
 }

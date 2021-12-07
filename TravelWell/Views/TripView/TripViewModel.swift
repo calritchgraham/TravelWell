@@ -32,6 +32,7 @@ final class TripViewModel: ObservableObject{
     @Published var covidAvailable = false
     @Published var showCovid = false
     @Published var covidResults : CovidData?
+    @Published var favourites = [Favourite]()
     var managedObjectContext = PersistenceController.shared.container.viewContext
     
     func setTrip(trip: Trip){
@@ -44,6 +45,25 @@ final class TripViewModel: ObservableObject{
         let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: trip.lat, longitude: trip.long))
         self.accom.append(accomPin)
         self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: trip.lat, longitude: trip.long), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    }
+    
+    func populateFavourites(){
+        if trip.favourite  != nil{
+            for favourite in Array(trip.favourite! as! Set<Favourite>){
+                if !favourites.contains(favourite){
+                    favourites.append(favourite)
+                }
+            }
+        }
+    }
+    
+    func removeFavourite(favourite: Favourite){
+        for i in 0...favourites.count-1{
+            if favourites[i] == favourite {
+                favourites.remove(at: i)
+            }
+        }
+        
     }
     
     func getSafetyRating(trip: Trip){

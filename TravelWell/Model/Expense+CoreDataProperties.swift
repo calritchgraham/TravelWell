@@ -20,6 +20,7 @@ extension Expense {
     @NSManaged public var amount: Double
     @NSManaged public var occasion: String?
     @NSManaged public var date: Date?
+    @NSManaged public var trip: Trip?
 
 }
 

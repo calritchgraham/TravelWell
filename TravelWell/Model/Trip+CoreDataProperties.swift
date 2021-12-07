@@ -25,6 +25,7 @@ extension Trip {
     @NSManaged public var outbound: Date?
     @NSManaged public var timeZone: String?
     @NSManaged public var favourite: NSSet?
+    @NSManaged public var expense: NSSet?
 
 }
 

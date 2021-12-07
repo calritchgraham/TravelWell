@@ -23,8 +23,8 @@ struct MapView: View {
             HStack{
                 TextField("Search for...", text: $searchTerm)
                 if searchTerm != "" {
-                    NavigationLink(destination: MapSearchView(searchTerm: searchTerm, region: region, accom: accom, currTrip: currTrip)){
-                        Image(systemName: "magnifyingglass.circle.fill")
+                    NavigationLink(destination: MapSearchView(searchTerm: searchTerm, accom: accom, region: region, currTrip: currTrip)){
+                        Image(systemName: "magnifyingglass.circle.fill")//bigger
                     }
                 }
             }.frame(height: 50.00)

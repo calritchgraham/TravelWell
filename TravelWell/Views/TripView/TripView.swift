@@ -12,23 +12,20 @@ struct TripView: View {
     @State var trip : Trip
     @State var isLoading = true
     @StateObject private var tripViewModel = TripViewModel()
-    
 
-    
-    
     var body: some View {
         VStack{
             if isLoading{
                 Text("Loading...").onAppear{
                     tripViewModel.setTrip(trip: trip)
+                    tripViewModel.populateFavourites()
                     self.isLoading = false
                 }
-                
             }else{
+                Text(tripViewModel.trip.accomName!).bold()
                 NavigationLink(destination: JetLagView(trip: tripViewModel.trip)){
-                    Text("Jet Lag")
+                    Text("Jet Lag Management Information")
                 }
-                Text(tripViewModel.trip.accomName!)
             
                 
                 NavigationLink(destination: MapView(region: tripViewModel.region, accom: tripViewModel.accom, currTrip: trip)){
@@ -105,7 +102,7 @@ struct TripView: View {
                     Text("Starred Places")
             
                     List {
-                        ForEach(Array(trip.favourite as! Set<Favourite>), id:\.self) { item in
+                        ForEach(tripViewModel.favourites, id:\.self) { item in
                             NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: tripViewModel.accom, currTrip: trip)){
                                 VStack{
                                     HStack{
@@ -113,6 +110,7 @@ struct TripView: View {
                                         Spacer()
                                         Image(systemName: "star.fill").onTapGesture{
                                             PersistenceController.shared.delete(item)
+                                            tripViewModel.removeFavourite(favourite: item)
                                         }
                                     
                                     }
@@ -132,5 +130,6 @@ struct TripView: View {
         }
     }
 }
+
 
 

@@ -18,6 +18,7 @@
 		1DAD27C1275E073D00F8773D /* JetLagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27C0275E073D00F8773D /* JetLagViewModel.swift */; };
 		1DB96CEF275B2D39004FF2BD /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB96CED275B2D39004FF2BD /* Expense+CoreDataClass.swift */; };
 		1DB96CF0275B2D39004FF2BD /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB96CEE275B2D39004FF2BD /* Expense+CoreDataProperties.swift */; };
+		1DC1DA17275F1DFE00A647E1 /* JetLagAdvice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC1DA16275F1DFE00A647E1 /* JetLagAdvice.swift */; };
 		1DDB6DF327399ED80079881B /* TravelWellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB6DF227399ED80079881B /* TravelWellApp.swift */; };
 		1DDB6DF727399ED90079881B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DDB6DF627399ED90079881B /* Assets.xcassets */; };
 		1DDB6DFA27399ED90079881B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DDB6DF927399ED90079881B /* Preview Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		1DAD27C0275E073D00F8773D /* JetLagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetLagViewModel.swift; sourceTree = "<group>"; };
 		1DB96CED275B2D39004FF2BD /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1DB96CEE275B2D39004FF2BD /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1DC1DA16275F1DFE00A647E1 /* JetLagAdvice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetLagAdvice.swift; sourceTree = "<group>"; };
 		1DDB6DEF27399ED80079881B /* TravelWell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelWell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDB6DF227399ED80079881B /* TravelWellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelWellApp.swift; sourceTree = "<group>"; };
 		1DDB6DF627399ED90079881B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				1DDB6E132739B6150079881B /* Model.xcdatamodeld */,
+				1DC1DA16275F1DFE00A647E1 /* JetLagAdvice.swift */,
 				1DF2D280275D730D00AD5E44 /* SafetyRatings.swift */,
 				1DDB6E8A273F1A610079881B /* CovidData.swift */,
 				1DB96CED275B2D39004FF2BD /* Expense+CoreDataClass.swift */,
@@ -360,6 +363,7 @@
 				1DDB6E2B2739C6D50079881B /* TripView.swift in Sources */,
 				1DDB6E2D2739D34B0079881B /* MapSearchView.swift in Sources */,
 				1DDB6DF327399ED80079881B /* TravelWellApp.swift in Sources */,
+				1DC1DA17275F1DFE00A647E1 /* JetLagAdvice.swift in Sources */,
 				1DDB6EA32746702A0079881B /* Trip+CoreDataProperties.swift in Sources */,
 				1D3995FA275CDB3F00B8E433 /* TripViewModel.swift in Sources */,
 				1DDB6E152739B6150079881B /* Model.xcdatamodeld in Sources */,

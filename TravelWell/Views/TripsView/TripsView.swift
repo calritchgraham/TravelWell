@@ -10,7 +10,7 @@ struct TripsView: View {
     func removeTrip(at offsets: IndexSet){
         for index in offsets {
             let trip = trips[index]
-            PersistenceController.shared.delete(trip) //fix
+            PersistenceController.shared.delete(trip)
         }
     }
     
@@ -21,7 +21,11 @@ struct TripsView: View {
                 List {
                     ForEach(trips, id:\.self) { currentTrip in
                         NavigationLink(destination: TripView(trip: currentTrip)){
-                            Text("\(currentTrip.accomName ?? "Unknown") , \(currentTrip.destination ?? "Unknown")")
+                            VStack{
+                                Text("\(currentTrip.accomName ?? "Unknown") , \(currentTrip.destination ?? "Unknown")").bold()
+                                Text("\(currentTrip.outbound!, style: .date) to \(currentTrip.inbound!, style: .date)")
+                            }
+                            
                             
                         }
                     }.onDelete(perform: removeTrip)

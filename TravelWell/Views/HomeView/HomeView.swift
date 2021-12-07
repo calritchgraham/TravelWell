@@ -30,20 +30,24 @@ struct HomeView: View {
         for index in offsets {
             let expense = expenses[index]
             PersistenceController.shared.delete(expense)
+            homeViewModel.removeExpense(expense: expense)
         }
     }
-    
+
     var body: some View {
         NavigationView {
             if !homeViewModel.onATrip {
-                Text("Loading...").onAppear{
-                    homeViewModel.setPersistentData(profile: profile, trips: trips, expenses: expenses)
-                    homeViewModel.calculatePerDiem()
-                    homeViewModel.getExchangeRates()
-                    //self.filterExpense()
-                    homeViewModel.isOnATrip()
-                    
+                if trips.isEmpty{
+                    Text("You have no upcoming trips")
+                    NavigationLink(destination: AddTripView()){
+                      Text("Add a Trip")
+                    }
+                }else{
+                    Text("Your next trip is in \(abs((Calendar.current.dateComponents([.day], from: trips.first!.outbound!, to: Date())).day!)) days").onAppear{
+                        homeViewModel.isOnATrip()
+                    }
                 }
+                
             }else {
                 VStack{
                     if profile.isEmpty{
@@ -60,7 +64,17 @@ struct HomeView: View {
                             HStack{
                                 Text("Available Per Diem:")
                                 Spacer()
-                                Text("\(homeViewModel.availablePD)") //2 decimal point
+                                Text("\(profile.first?.localCurr ?? "XXX")")
+                                Spacer()
+                                Text("\(String(format: "%.2f", homeViewModel.availablePD))") //2 decimal point
+                            }
+                        }else{
+                            HStack{
+                                Text("Total Spend")
+                                Spacer()
+                                Text("\(profile.first?.localCurr ?? "XXX")")
+                                Spacer()
+                                Text("\(String(format: "%.2f", abs(homeViewModel.availablePD)))") //2 decimal point
                             }
                         }
                         
@@ -79,9 +93,6 @@ struct HomeView: View {
                             TextField("Occasion", text: $homeViewModel.occasion)
                         }
                         HStack{
-                            Form{
-                                TextField("Amount", text: $homeViewModel.amount)
-                            }.keyboardType(.decimalPad)
                             Form { //selection of two, home and local??
                                 Picker("Local Currency", selection: $homeViewModel.currency) {
                                     ForEach(homeViewModel.isoCurrencyCodes, id: \.self) {
@@ -89,66 +100,74 @@ struct HomeView: View {
                                   }
                               }
                             }
+                            
+                            Form{
+                                TextField("Amount", text: $homeViewModel.amount)
+                            }.keyboardType(.decimalPad)
+                            
                             if homeViewModel.amount != "" && homeViewModel.occasion != "" && homeViewModel.currency != ""{
                                 Image(systemName: "square.and.arrow.down.fill").onTapGesture {
                                     homeViewModel.saveExpense()
+                                    hideKeyboard()
                                 }
                                 
                             }
                         }
                         
-                        NavigationLink(destination: MapView(region: homeViewModel.region, accom: homeViewModel.accom, currTrip: homeViewModel.currTrip)){
+                        NavigationLink(destination: MapView(region: homeViewModel.region, accom: homeViewModel.accom, currTrip: homeViewModel.currTrip!)){
                             Map(coordinateRegion: $homeViewModel.region , showsUserLocation: true, annotationItems: homeViewModel.accom) { place in
                                     MapMarker(coordinate: place.coordinate, tint: Color.purple)
                                 }.frame(width: 400, height: 300)
                         }.onAppear{
                             homeViewModel.mapInitiate()
                         }
+                        if homeViewModel.currTrip != nil && homeViewModel.currTrip?.favourite != nil {
+                            Section{
+                                Text("Starred Places")
                         
-                        Section{
-                            Text("Starred Places")
-                    
-                            List {
-                                ForEach(Array(homeViewModel.currTrip.favourite as! Set<Favourite>), id:\.self) { item in
-                                    NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: homeViewModel.accom, currTrip: homeViewModel.currTrip)){
-                                        VStack{
-                                            HStack{
-                                                Text(item.name ?? "Unknown")
-                                                Spacer()
-                                                Image(systemName: "star.fill").onTapGesture{
-                                                    PersistenceController.shared.delete(item) //fix this
+                                List {
+                                    ForEach(Array(homeViewModel.currTrip!.favourite as! Set<Favourite>), id:\.self) { item in
+                                        NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: homeViewModel.accom, currTrip: homeViewModel.currTrip!)){
+                                            VStack{
+                                                HStack{
+                                                    Text(item.name ?? "Unknown").bold()
                                                 }
-                                            
+                                                HStack{
+                                                    Text("Distance from accomodation")
+                                                    Spacer()
+                                                    Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: homeViewModel.currTrip!.lat, longitude: homeViewModel.currTrip!.long))))))))) m")
+                                                }
+                                                
+                                        }.onTapGesture{
+                                            homeViewModel.accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                                             }
-                                            HStack{
-                                                Text("Distance from accomodation")
-                                                Spacer()
-                                                Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: homeViewModel.currTrip.lat, longitude: homeViewModel.currTrip.long))))))))) m")
-                                            }
-                                        }.onTapGesture{ //not working
-                                                //accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                                         }
                                     }
                                 }
                             }
                         }
-                    }else{
-                        if trips.isEmpty{
-                            Text("You have no upcoming trips")
-                            NavigationLink(destination: AddTripView()){
-                              Text("Add a Trip")
-                            }
-                        }else{
-                            Text("Your next trip is in \(abs((Calendar.current.dateComponents([.day], from: trips.first!.outbound!, to: Date())).day!)) days")
-                        }
                     }
-                    Spacer()
+                        
                 }
             }
         }.navigationBarHidden(true)
+            .onAppear{
+                homeViewModel.setPersistentData(profile: profile, trips: trips)
+                homeViewModel.filterExpense()
+                if homeViewModel.exchangeRates == nil{
+                    homeViewModel.getExchangeRates()
+                }else{
+                    homeViewModel.calculatePerDiem()
+                }
+                homeViewModel.isOnATrip()
+                
+            }
     }
 }
 
-
-
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
