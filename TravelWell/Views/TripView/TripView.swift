@@ -103,28 +103,32 @@ struct TripView: View {
             
                     List {
                         ForEach(tripViewModel.favourites, id:\.self) { item in
-                            NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: tripViewModel.accom, currTrip: trip)){
-                                VStack{
-                                    HStack{
-                                        Text(item.name ?? "Unknown")
-                                        Spacer()
-                                        Image(systemName: "star.fill").onTapGesture{
-                                            PersistenceController.shared.delete(item)
-                                            tripViewModel.removeFavourite(favourite: item)
+                            if item.name != nil {
+                                NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: tripViewModel.accom, currTrip: trip)){
+                                    VStack{
+                                        HStack{
+                                            Text(item.name ?? "Unknown")
+                                            Spacer()
+                                            Image(systemName: "star.fill").onTapGesture{
+                                                PersistenceController.shared.delete(item)
+                                                tripViewModel.removeFavourite(favourite: item)
+                                            }
+                                        
                                         }
-                                    
+                                        HStack{
+                                            Text("Distance from accomodation")
+                                            Spacer()
+                                            Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: trip.lat, longitude: trip.long))))))))) m")
+                                        }
+                                    }.onTapGesture{ //not working
+                                            //accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                                     }
-                                    HStack{
-                                        Text("Distance from accomodation")
-                                        Spacer()
-                                        Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: trip.lat, longitude: trip.long))))))))) m")
-                                    }
-                                }.onTapGesture{ //not working
-                                        //accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                                 }
                             }
                         }
                     }
+                }.onDisappear{
+                    self.isLoading = true
                 }
             }
         }

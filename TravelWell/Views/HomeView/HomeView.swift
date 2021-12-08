@@ -127,19 +127,21 @@ struct HomeView: View {
                         
                                 List {
                                     ForEach(Array(homeViewModel.currTrip!.favourite as! Set<Favourite>), id:\.self) { item in
-                                        NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: homeViewModel.accom, currTrip: homeViewModel.currTrip!)){
-                                            VStack{
-                                                HStack{
-                                                    Text(item.name ?? "Unknown").bold()
+                                        if item.name != nil{
+                                            NavigationLink(destination: MapView(region: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long), latitudinalMeters: 1000.0, longitudinalMeters: 1000.0), accom: homeViewModel.accom, currTrip: homeViewModel.currTrip!)){
+                                                VStack{
+                                                    HStack{
+                                                        Text(item.name ?? "Unknown").bold()
+                                                    }
+                                                    HStack{
+                                                        Text("Distance from accomodation")
+                                                        Spacer()
+                                                        Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: homeViewModel.currTrip!.lat, longitude: homeViewModel.currTrip!.long))))))))) m")
+                                                    }
+                                                    
+                                            }.onTapGesture{
+                                                homeViewModel.accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                                                 }
-                                                HStack{
-                                                    Text("Distance from accomodation")
-                                                    Spacer()
-                                                    Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: homeViewModel.currTrip!.lat, longitude: homeViewModel.currTrip!.long))))))))) m")
-                                                }
-                                                
-                                        }.onTapGesture{
-                                            homeViewModel.accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                                             }
                                         }
                                     }

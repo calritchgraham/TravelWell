@@ -25,8 +25,15 @@ struct JetLagView: View {
                 
             }else{
                 VStack{
-                    Text((trip?.outbound)!, style: .date)
+                    Text(jetLagViewModel.twoDaysBefore, style: .date).bold()
+                    Text(jetLagViewModel.jetLagAdvice!.twoDaysBefore)
+                    Divider()
+                    Text(jetLagViewModel.oneDayBefore, style: .date).bold()
+                    Text(jetLagViewModel.jetLagAdvice!.oneDayBefore)
+                    Divider()
+                    Text((trip?.outbound)!, style: .date).bold()
                     Text(jetLagViewModel.jetLagAdvice!.arrival)
+                    Divider()
                     
                 }
                 Text("This advice is based on research by Dr Robert L Slack, published in The New England Journal of Medicine, 2010")
@@ -36,6 +43,7 @@ struct JetLagView: View {
             jetLagViewModel.setPersistentData(profile: profile)
             jetLagViewModel.setTrip(trip: trip!)
             jetLagViewModel.calcTimeDiff()
+           
             
         }
     }

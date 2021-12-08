@@ -58,7 +58,7 @@ final class TripViewModel: ObservableObject{
     }
     
     func removeFavourite(favourite: Favourite){
-        for i in 0...favourites.count-1{
+        for i in 0...(favourites.count-1){
             if favourites[i] == favourite {
                 favourites.remove(at: i)
             }
@@ -103,7 +103,7 @@ final class TripViewModel: ObservableObject{
             switch result{
             case .success(let response):
                 let data = Data(response.body.utf8)
-                self.covidResults = try! JSONDecoder().decode(CovidData.self, from: data)  //deal with nil values
+                self.covidResults = try! JSONDecoder().decode(CovidData.self, from: data)  
                 self.covidAvailable = true
             case.failure(let error):
                 print("Error covid info - \(error.localizedDescription)")

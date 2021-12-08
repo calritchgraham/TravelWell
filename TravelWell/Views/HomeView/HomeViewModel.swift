@@ -37,7 +37,7 @@ final class HomeViewModel : ObservableObject{
     
     func removeExpense(expense: Expense){
         
-        for i in 0...allExpenses.count-1{
+        for i in 0...(allExpenses.count - 1){
             if allExpenses[i] == expense {
                 allExpenses.remove(at: i)
             }

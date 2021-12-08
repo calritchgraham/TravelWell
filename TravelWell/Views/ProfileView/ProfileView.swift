@@ -24,15 +24,10 @@ struct ProfileView: View {
                 ScrollView{
                 VStack(){
                     Form {
-                        TextField("Name", text: $profileViewModel.name)
-                    }.frame(height: 50.0)
-                
-                    Form {
                         Picker("Home Time Zone", selection: $profileViewModel.selectedTZ) {
                             ForEach(profileViewModel.knownTimeZoneIdentifiers, id: \.self) {
                               Text($0)
                           }
-
                       }
                     }.frame(height: 100.0)
                        
@@ -53,16 +48,17 @@ struct ProfileView: View {
                         .frame(height: 50.0)
                     }
                     
-                    if profileViewModel.perDiem != ""{
-                        Button("Save"){
-                            hideKeyboard()
-                            profileViewModel.saveProfile()
-                        }
+                    Button("Save"){
+                        hideKeyboard()
+                        profileViewModel.saveProfile()
                     }
-                  
-                }.onAppear{
-                    profileViewModel.retrieveProfile()
+                    
                 }
+            }
+        }.onAppear{
+            if !profile.isEmpty{
+                profileViewModel.setProfile(profile: profile)
+                profileViewModel.retrieveProfile()
             }
         }
     }

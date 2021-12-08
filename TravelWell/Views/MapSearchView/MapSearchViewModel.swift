@@ -52,7 +52,9 @@ class MapSearchViewModel: ObservableObject {
     
     func populateFavourites() {
         for fav in Array(currTrip?.favourite as! Set<Favourite>){
-            favourites.append(fav.name!)
+            if fav.name != nil{
+                favourites.append(fav.name!)
+            }
         }
     }
     
@@ -60,7 +62,7 @@ class MapSearchViewModel: ObservableObject {
         for fav in Array(currTrip?.favourite as! Set<Favourite>){
             if fav.name == name {
                 PersistenceController.shared.delete(fav)
-                for i in 0...favourites.count-1{
+                for i in 0...(favourites.count - 1){
                     if favourites[i] == name {
                         favourites.remove(at: i)
                     }

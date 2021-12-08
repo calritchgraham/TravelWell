@@ -36,7 +36,7 @@ final class JetLagViewModel : ObservableObject {
             let tripTZ = TimeZone(identifier: (trip?.timeZone)!)
             diffInSeconds = tripTZ!.secondsFromGMT() - homeTZ!.secondsFromGMT()
             oneDayBefore = (trip?.outbound?.advanced(by: oneDayInSecs))!
-            twoDaysBefore = (trip?.outbound?.advanced(by: -oneDayInSecs).advanced(by: -oneDayInSecs))!
+            twoDaysBefore = (trip?.outbound?.advanced(by: oneDayInSecs).advanced(by: oneDayInSecs))!
         }
         
         if (diffInSeconds < 0){

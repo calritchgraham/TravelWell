@@ -12,39 +12,33 @@ import SwiftUI
 
 final class ProfileViewModel : ObservableObject{
     var managedObjectContext = PersistenceController.shared.container.viewContext
-    @Published var name = ""
     @Published var selectedTZ = ""
     @Published var knownTimeZoneIdentifiers = TimeZone.knownTimeZoneIdentifiers
     @Published var hasPD = false
     @Published var localCurr = ""
     @Published var perDiem = ""
     var isoCurrencyCodes = Locale.commonISOCurrencyCodes
+    @Published var profile : AppProfile?
     
-    @FetchRequest(entity: AppProfile.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \AppProfile.timeZone, ascending: true)]
-                        ) var profile: FetchedResults<AppProfile>
+    func setProfile(profile: FetchedResults<AppProfile>){
+        self.profile = profile.first!
+    }
     
     func retrieveProfile(){
-        if self.profile.isEmpty{
-            return
-        }else{              //should be possible to unwrap as not saved unless complete and not executed if blank??
-            self.name = profile.first!.name!
-            self.selectedTZ = profile.first!.timeZone!
-            self.perDiem = String(profile.first!.perDiem)
-            self.localCurr = profile.first!.localCurr
-            self.hasPD = profile.first!.hasPD
-            //PersistenceController.shared.delete(profile.first!)
-        }
+        //should be possible to unwrap as not saved unless complete and not executed if blank??
+        self.selectedTZ = (profile?.timeZone!)!
+        self.perDiem = String((profile?.perDiem)!)
+        self.localCurr = profile!.localCurr
+        self.hasPD = ((profile?.hasPD)!)
     }
     
     
     func saveProfile(){
         let profile = AppProfile(context: managedObjectContext)
-        profile.name = name
-        profile.timeZone = selectedTZ
-        profile.localCurr = localCurr
-        profile.hasPD = hasPD
-        profile.perDiem = Double(perDiem) ?? 0.0
+        profile.timeZone = self.selectedTZ
+        profile.localCurr = self.localCurr
+        profile.hasPD = self.hasPD
+        profile.perDiem = Double(self.perDiem) ?? 0.0
         PersistenceController.shared.save()
     
     }
