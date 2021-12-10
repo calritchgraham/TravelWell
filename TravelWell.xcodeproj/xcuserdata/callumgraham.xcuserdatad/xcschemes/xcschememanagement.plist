@@ -28,7 +28,20 @@
 		<key>TravelWell.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1DC1DA1B276046B000A647E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1DDB6DEE27399ED80079881B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

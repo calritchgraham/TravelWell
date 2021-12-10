@@ -1,20 +1,17 @@
-//
-//  Persistence.swift
-//  TravelWell
-//
-//  Created by Callum Graham on 08/11/2021.
-//
-
 import CoreData
+import TravelWell   
 
-struct PersistenceController{
+struct TestingEnvironmentPersistenceController{
     
-    static let shared = PersistenceController()
-        
+    static var shared = TestingEnvironmentPersistenceController()
+    
     let container: NSPersistentContainer
-  
+    
     init(){
         container = NSPersistentContainer(name: "Model")
+        let description = NSPersistentStoreDescription()
+        description.url = URL(fileURLWithPath: "/dev/null")
+        container.persistentStoreDescriptions = [description]
         container.loadPersistentStores {(desctiption, error) in
             if let error = error {
                 fatalError("Error: \(error)") //crash app when error occurs and print
@@ -42,4 +39,3 @@ struct PersistenceController{
         save(completion: completion)
     }
 }
-

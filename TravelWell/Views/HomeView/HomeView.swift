@@ -14,21 +14,16 @@ struct HomeView: View {
     @FetchRequest(entity: AppProfile.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \AppProfile.timeZone, ascending: true)]
                         ) var profile: FetchedResults<AppProfile>
-    
+
     @FetchRequest(entity: Trip.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Trip.outbound, ascending: true)]
                         ) var trips: FetchedResults<Trip>
-    @FetchRequest(entity: Expense.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \Expense.date, ascending: true)]
-                        ) var expenses: FetchedResults<Expense>
     
     @StateObject private var homeViewModel = HomeViewModel()
     
-   
-    
     func removeExpense(at offsets: IndexSet){
         for index in offsets {
-            let expense = expenses[index]
+            let expense = homeViewModel.allExpenses[index]
             PersistenceController.shared.delete(expense)
             homeViewModel.removeExpense(expense: expense)
         }
@@ -78,8 +73,30 @@ struct HomeView: View {
                             }
                         }
                         
+                        Form{
+                            HStack{
+                                TextField("Occasion", text: $homeViewModel.occasion)
+                                
+                                Picker("Local Currency", selection: $homeViewModel.currency) {
+                                    ForEach(homeViewModel.isoCurrencyCodes, id: \.self) {
+                                      Text($0)
+                                    }
+                                }
+                                        
+                                TextField("Amount", text: $homeViewModel.amount).keyboardType(.decimalPad)
+                                
+                                if homeViewModel.amount != "" && homeViewModel.occasion != "" && homeViewModel.currency != ""{
+                                    Image(systemName: "square.and.arrow.down.fill").onTapGesture {
+                                        homeViewModel.saveExpense()
+                                        hideKeyboard()
+                                    }
+                                }
+                            }
+                        }
+                        
+                        
                         List {
-                            ForEach(expenses, id:\.self) { currentExpense in
+                            ForEach(homeViewModel.allExpenses, id:\.self) { currentExpense in
                                 HStack{
                                     Text("\(currentExpense.occasion ?? "Unknown")")
                                     Text("\(currentExpense.currency ?? "Unknown")")
@@ -88,39 +105,7 @@ struct HomeView: View {
                                 }
                             }.onDelete(perform: removeExpense)
                         }
-                        
-                        Form{
-                            TextField("Occasion", text: $homeViewModel.occasion)
-                        }
-                        HStack{
-                            Form { //selection of two, home and local??
-                                Picker("Local Currency", selection: $homeViewModel.currency) {
-                                    ForEach(homeViewModel.isoCurrencyCodes, id: \.self) {
-                                      Text($0)
-                                  }
-                              }
-                            }
-                            
-                            Form{
-                                TextField("Amount", text: $homeViewModel.amount)
-                            }.keyboardType(.decimalPad)
-                            
-                            if homeViewModel.amount != "" && homeViewModel.occasion != "" && homeViewModel.currency != ""{
-                                Image(systemName: "square.and.arrow.down.fill").onTapGesture {
-                                    homeViewModel.saveExpense()
-                                    hideKeyboard()
-                                }
-                                
-                            }
-                        }
-                        
-                        NavigationLink(destination: MapView(region: homeViewModel.region, accom: homeViewModel.accom, currTrip: homeViewModel.currTrip!)){
-                            Map(coordinateRegion: $homeViewModel.region , showsUserLocation: true, annotationItems: homeViewModel.accom) { place in
-                                    MapMarker(coordinate: place.coordinate, tint: Color.purple)
-                                }.frame(width: 400, height: 300)
-                        }.onAppear{
-                            homeViewModel.mapInitiate()
-                        }
+
                         if homeViewModel.currTrip != nil && homeViewModel.currTrip?.favourite != nil {
                             Section{
                                 Text("Starred Places")
@@ -154,7 +139,7 @@ struct HomeView: View {
             }
         }.navigationBarHidden(true)
             .onAppear{
-                homeViewModel.setPersistentData(profile: profile, trips: trips)
+                homeViewModel.fetchStoredData()
                 homeViewModel.filterExpense()
                 if homeViewModel.exchangeRates == nil{
                     homeViewModel.getExchangeRates()

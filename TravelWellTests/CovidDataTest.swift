@@ -10,7 +10,7 @@ import XCTest
 
 class CovidDataTest: XCTestCase {
     
-    func testCanParseCovid() throws {
+    func testCanParseCovid() {
         
         guard let pathString = Bundle(for: type(of: self)).path(forResource: "CovidJSON", ofType: "json") else { fatalError("json not found")}
         

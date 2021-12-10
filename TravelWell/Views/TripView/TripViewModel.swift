@@ -15,9 +15,9 @@ import Amadeus
 
 final class TripViewModel: ObservableObject{
     var amadeus = Amadeus(
-        client_id: "as", //"WXIrygihAwXYGBTYB6UGoim91OAPQsdr",
-        client_secret: "FNka9GNxUSuGreX2"
-    )
+        client_id: "", //"7P3QGlemZJYXrhl7BAvAQODOGFuMhMWZ",
+        client_secret: "G5Gov3YpWeAytXpm")
+    
     @Published var overall = ""
     @Published var theft = ""
     @Published var physicalHarm = ""
@@ -72,7 +72,7 @@ final class TripViewModel: ObservableObject{
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-                    self.updateSR(response: response)
+                    self.updateSR(response: response)  //SafetuyRating does not confirm to Codable, decode manually
                 }
             case .failure(let error):
                 print("Error fetching safety ratings - \(error.localizedDescription)")

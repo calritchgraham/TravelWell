@@ -10,10 +10,8 @@ import MapKit
 
 final class HomeViewModel : ObservableObject{
     
-    private var profile : FetchedResults<AppProfile>?
-    private var trips : FetchedResults<Trip>?
-    private var expenses : FetchedResults<Expense>?
-    
+    private var profile : [AppProfile]?
+    private var trips : [Trip]?
     var managedObjectContext = PersistenceController.shared.container.viewContext
     @Published var onATrip = false
     @StateObject private var locationServicesModel = LocationServicesModel()
@@ -30,9 +28,20 @@ final class HomeViewModel : ObservableObject{
     @Published var availablePD = 0.0
     var allExpenses = [Expense]()
     
-    func setPersistentData(profile: FetchedResults<AppProfile>, trips: FetchedResults<Trip>){
+    func setPersistentData(profile: [AppProfile], trips: [Trip]){
         self.trips = trips
         self.profile = profile
+    }
+    
+    func fetchStoredData(){
+        let fetchRequestTrip: NSFetchRequest<Trip>
+        fetchRequestTrip = Trip.fetchRequest()
+        let context = managedObjectContext
+        trips = try! context.fetch(fetchRequestTrip)
+        
+        let fetchRequestProfile: NSFetchRequest<AppProfile>
+        fetchRequestProfile = AppProfile.fetchRequest()
+        profile = try! context.fetch(fetchRequestProfile)
     }
     
     func removeExpense(expense: Expense){
@@ -67,8 +76,8 @@ final class HomeViewModel : ObservableObject{
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         let todayString = formatter.string(from: today)
-        if expenses != nil{
-            for expense in expenses!{
+        if !allExpenses.isEmpty{
+            for expense in allExpenses{
                 if todayString != formatter.string(from: expense.date!){
                     PersistenceController.shared.delete(expense)
                 }
@@ -165,7 +174,6 @@ final class HomeViewModel : ObservableObject{
              let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: currTrip!.lat, longitude: currTrip!.long))
              self.accom.append(accomPin)
              currCoords = CLLocationCoordinate2D(latitude: currTrip!.lat, longitude: currTrip!.long)
-             //print(expenses.first)
 //             while currCoords == nil {
 //                 self.currCoords = mapViewModel.locationManager?.location?.coordinate
 //             }

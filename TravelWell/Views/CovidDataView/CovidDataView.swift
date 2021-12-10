@@ -10,7 +10,7 @@ import SwiftUI
 struct CovidDataView: View {
     @State var covidResults : CovidData
     
-    var body: some View {   //fix force unwrap
+    var body: some View { 
         Text("\(covidResults.data.area.name!)").bold()
         List{
             Section{

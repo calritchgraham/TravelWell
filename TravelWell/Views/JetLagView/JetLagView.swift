@@ -25,6 +25,9 @@ struct JetLagView: View {
                 
             }else{
                 VStack{
+                    Button("Add Reminders to Calendar"){
+                        jetLagViewModel.checkCalendarAccess()
+                    }
                     Text(jetLagViewModel.twoDaysBefore, style: .date).bold()
                     Text(jetLagViewModel.jetLagAdvice!.twoDaysBefore)
                     Divider()
