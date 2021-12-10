@@ -20,11 +20,19 @@ final class ProfileViewModel : ObservableObject{
     var isoCurrencyCodes = Locale.commonISOCurrencyCodes
     @Published var profile : AppProfile?
     
+    func setProfile(profile: AppProfile){
+        self.profile = profile
+        self.setProfileValues()
+    }
+    
     func retrieveProfile(){
         let fetchRequestProfile: NSFetchRequest<AppProfile>
         fetchRequestProfile = AppProfile.fetchRequest()
         profile = try! managedObjectContext.fetch(fetchRequestProfile).first
-        
+        self.setProfileValues()
+    }
+    
+    func setProfileValues() {
         if profile != nil {
             self.selectedTZ = (profile?.timeZone!)!
             self.perDiem = String((profile?.perDiem)!)

@@ -10,6 +10,7 @@
 		1D3995F8275CD9F200B8E433 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3995F7275CD9F200B8E433 /* HomeViewModel.swift */; };
 		1D3995FA275CDB3F00B8E433 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3995F9275CDB3F00B8E433 /* TripViewModel.swift */; };
 		1D46266D2763A2C700D3ED21 /* TripViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D46266C2763A2C700D3ED21 /* TripViewModelTest.swift */; };
+		1D46266F2763C2E400D3ED21 /* ProfileViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D46266E2763C2E400D3ED21 /* ProfileViewModelTest.swift */; };
 		1DAD27B5275DF56000F8773D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B4275DF56000F8773D /* Location.swift */; };
 		1DAD27B7275DF57900F8773D /* ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B6275DF57900F8773D /* ExchangeRates.swift */; };
 		1DAD27B9275DF86A00F8773D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B8275DF86A00F8773D /* ProfileViewModel.swift */; };
@@ -69,6 +70,7 @@
 		1D3995F9275CDB3F00B8E433 /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
 		1D46266927639BF400D3ED21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1D46266C2763A2C700D3ED21 /* TripViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModelTest.swift; sourceTree = "<group>"; };
+		1D46266E2763C2E400D3ED21 /* ProfileViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTest.swift; sourceTree = "<group>"; };
 		1DAD27B4275DF56000F8773D /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		1DAD27B6275DF57900F8773D /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
 		1DAD27B8275DF86A00F8773D /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				1D46266C2763A2C700D3ED21 /* TripViewModelTest.swift */,
 				1DC1DA292760761C00A647E1 /* CovidJSON.json */,
 				1DC1DA312760A05400A647E1 /* Persistence.swift */,
+				1D46266E2763C2E400D3ED21 /* ProfileViewModelTest.swift */,
 			);
 			path = TravelWellTests;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D46266F2763C2E400D3ED21 /* ProfileViewModelTest.swift in Sources */,
 				1DC1DA2E2760831400A647E1 /* HomeViewModelTest.swift in Sources */,
 				1D46266D2763A2C700D3ED21 /* TripViewModelTest.swift in Sources */,
 				1DC1DA2627606E9300A647E1 /* CovidDataTest.swift in Sources */,

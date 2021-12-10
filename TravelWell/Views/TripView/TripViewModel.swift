@@ -15,7 +15,7 @@ import Amadeus
 
 final class TripViewModel: ObservableObject{
     var amadeus = Amadeus(
-        client_id: "", //"7P3QGlemZJYXrhl7BAvAQODOGFuMhMWZ",
+        client_id: "",//7P3QGlemZJYXrhl7BAvAQODOGFuMhMWZ",
         client_secret: "G5Gov3YpWeAytXpm")
     
     @Published var overall = ""
