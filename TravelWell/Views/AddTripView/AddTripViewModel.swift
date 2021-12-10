@@ -42,8 +42,6 @@ final class AddTripViewModel : NSObject, ObservableObject {
         }
     }
 }
-    
-
 
 extension AddTripViewModel : MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {

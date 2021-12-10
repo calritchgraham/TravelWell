@@ -20,16 +20,17 @@ final class ProfileViewModel : ObservableObject{
     var isoCurrencyCodes = Locale.commonISOCurrencyCodes
     @Published var profile : AppProfile?
     
-    func setProfile(profile: FetchedResults<AppProfile>){
-        self.profile = profile.first!
-    }
-    
     func retrieveProfile(){
-        //should be possible to unwrap as not saved unless complete and not executed if blank??
-        self.selectedTZ = (profile?.timeZone!)!
-        self.perDiem = String((profile?.perDiem)!)
-        self.localCurr = profile!.localCurr
-        self.hasPD = ((profile?.hasPD)!)
+        let fetchRequestProfile: NSFetchRequest<AppProfile>
+        fetchRequestProfile = AppProfile.fetchRequest()
+        profile = try! managedObjectContext.fetch(fetchRequestProfile).first
+        
+        if profile != nil {
+            self.selectedTZ = (profile?.timeZone!)!
+            self.perDiem = String((profile?.perDiem)!)
+            self.localCurr = profile!.localCurr
+            self.hasPD = ((profile?.hasPD)!)
+        }
     }
     
     

@@ -138,9 +138,9 @@
 			children = (
 				1DC1DA2527606E9300A647E1 /* CovidDataTest.swift */,
 				1DC1DA2D2760831400A647E1 /* HomeViewModelTest.swift */,
+				1D46266C2763A2C700D3ED21 /* TripViewModelTest.swift */,
 				1DC1DA292760761C00A647E1 /* CovidJSON.json */,
 				1DC1DA312760A05400A647E1 /* Persistence.swift */,
-				1D46266C2763A2C700D3ED21 /* TripViewModelTest.swift */,
 			);
 			path = TravelWellTests;
 			sourceTree = "<group>";

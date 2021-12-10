@@ -14,53 +14,37 @@ struct ProfileView: View {
      
     @StateObject private var profileViewModel = ProfileViewModel()
 
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: AppProfile.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \AppProfile.timeZone, ascending: true)]
-                        ) var profile: FetchedResults<AppProfile>
-    
     var body: some View {
         NavigationView{
-                ScrollView{
-                VStack(){
-                    Form {
-                        Picker("Home Time Zone", selection: $profileViewModel.selectedTZ) {
-                            ForEach(profileViewModel.knownTimeZoneIdentifiers, id: \.self) {
-                              Text($0)
-                          }
-                      }
-                    }.frame(height: 100.0)
-                       
-                    Form {
-                        Picker("Local Currency", selection: $profileViewModel.localCurr) {
-                            ForEach(profileViewModel.isoCurrencyCodes, id: \.self) {
-                              Text($0)
-                          }
-                      }
-                    }.frame(height: 100.0)
+            VStack{
+                Form{
+                    Picker("Home Time Zone", selection: $profileViewModel.selectedTZ) {
+                        ForEach(profileViewModel.knownTimeZoneIdentifiers, id: \.self) {
+                          Text($0)
+                        }
+                    }
                     
+                    Picker("Local Currency", selection: $profileViewModel.localCurr) {
+                        ForEach(profileViewModel.isoCurrencyCodes, id: \.self) {
+                          Text($0)
+                        }
+                    }
                     Toggle("Do you have a per diem?", isOn: $profileViewModel.hasPD)
                     
                     if profileViewModel.hasPD{
-                        Form {
-                            TextField("Per Diem Amount", text: $profileViewModel.perDiem)
-                        }.keyboardType(.decimalPad)
-                        .frame(height: 50.0)
+                        TextField("Per Diem Amount", text: $profileViewModel.perDiem).keyboardType(.decimalPad)
                     }
-                    
-                    Button("Save"){
-                        hideKeyboard()
-                        profileViewModel.saveProfile()
-                    }
-                    
                 }
             }
+        }.onTapGesture{
+            hideKeyboard()
         }.onAppear{
-            if !profile.isEmpty{
-                profileViewModel.setProfile(profile: profile)
-                profileViewModel.retrieveProfile()
-            }
+            profileViewModel.retrieveProfile()
+        }.onDisappear{
+            profileViewModel.saveProfile()
         }
     }
 }
+
+
 
