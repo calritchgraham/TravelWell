@@ -23,7 +23,7 @@ struct HomeView: View {
     
     func removeExpense(at offsets: IndexSet){
         for index in offsets {
-            let expense = homeViewModel.allExpenses[index]
+            let expense = homeViewModel.todayExpenses[index]
             PersistenceController.shared.delete(expense)
             homeViewModel.removeExpense(expense: expense)
         }
@@ -56,7 +56,7 @@ struct HomeView: View {
                                     Text(homeViewModel.getHomeTime(), style: .time)
                                 }
                             }
-                        Section{
+                            Section { //(header: Text("Expenses"){
                             if profile.first?.hasPD != nil && profile.first?.hasPD == true{
                                 HStack{
                                     Text("Available Per Diem:")
@@ -78,11 +78,11 @@ struct HomeView: View {
                             HStack{
                                 TextField("Occasion", text: $homeViewModel.occasion)
                                 
-                                Picker("Currency", selection: $homeViewModel.currency) {
+                                Picker("£$€", selection: $homeViewModel.currency) {
                                     ForEach(homeViewModel.isoCurrencyCodes, id: \.self) {
                                       Text($0)
                                     }
-                                }
+                                }//.frame(width: 0, height: 60)
                                         
                                 TextField("Amount", text: $homeViewModel.amount).keyboardType(.decimalPad)
                                 
@@ -93,14 +93,20 @@ struct HomeView: View {
                                     }
                                 }
                             }// height higher
-                            Text("Expenses")
                                 
-                            ForEach(homeViewModel.allExpenses, id:\.self) { currentExpense in
+                            ForEach(homeViewModel.todayExpenses, id:\.self) { currentExpense in
                                 HStack{
                                     Text("\(currentExpense.occasion ?? "Unknown")")
+                                    Spacer()
                                     Text("\(currentExpense.currency ?? "Unknown")")
                                     Spacer()
                                     Text("\(String(currentExpense.amount))")
+                                    Spacer()
+                                    NavigationLink(destination: PhotoPickerView(expense: currentExpense)){
+                                        Image(systemName: "photo")
+                                    }
+                                        
+                                  
                                 }
                             }.onDelete(perform: removeExpense)
                         }

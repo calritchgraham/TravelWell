@@ -11,6 +11,11 @@
 		1D3995FA275CDB3F00B8E433 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3995F9275CDB3F00B8E433 /* TripViewModel.swift */; };
 		1D46266D2763A2C700D3ED21 /* TripViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D46266C2763A2C700D3ED21 /* TripViewModelTest.swift */; };
 		1D46266F2763C2E400D3ED21 /* ProfileViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D46266E2763C2E400D3ED21 /* ProfileViewModelTest.swift */; };
+		1D5256622764B144002F8BF0 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D52565D2764B0BD002F8BF0 /* PhotoPickerView.swift */; };
+		1D5256632764B144002F8BF0 /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D52565F2764B101002F8BF0 /* PhotoPickerViewModel.swift */; };
+		1D52566A2764C2B5002F8BF0 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5256692764C2B4002F8BF0 /* PhotoPicker.swift */; };
+		1DA2657A2763D3B700325D04 /* JetLagViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA265792763D3B700325D04 /* JetLagViewModelTest.swift */; };
+		1DA2657C2764A46000325D04 /* CurrencyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2657B2764A46000325D04 /* CurrencyTest.swift */; };
 		1DAD27B5275DF56000F8773D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B4275DF56000F8773D /* Location.swift */; };
 		1DAD27B7275DF57900F8773D /* ExchangeRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B6275DF57900F8773D /* ExchangeRates.swift */; };
 		1DAD27B9275DF86A00F8773D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B8275DF86A00F8773D /* ProfileViewModel.swift */; };
@@ -71,6 +76,12 @@
 		1D46266927639BF400D3ED21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1D46266C2763A2C700D3ED21 /* TripViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModelTest.swift; sourceTree = "<group>"; };
 		1D46266E2763C2E400D3ED21 /* ProfileViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTest.swift; sourceTree = "<group>"; };
+		1D52565D2764B0BD002F8BF0 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		1D52565F2764B101002F8BF0 /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
+		1D5256692764C2B4002F8BF0 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		1DA265792763D3B700325D04 /* JetLagViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetLagViewModelTest.swift; sourceTree = "<group>"; };
+		1DA2657B2764A46000325D04 /* CurrencyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTest.swift; sourceTree = "<group>"; };
+		1DA2657D2764A5CB00325D04 /* CurrencyJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrencyJSON.json; sourceTree = "<group>"; };
 		1DAD27B4275DF56000F8773D /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		1DAD27B6275DF57900F8773D /* ExchangeRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRates.swift; sourceTree = "<group>"; };
 		1DAD27B8275DF86A00F8773D /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -135,6 +146,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D5256612764B12B002F8BF0 /* PhotoPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1D52565D2764B0BD002F8BF0 /* PhotoPickerView.swift */,
+				1D52565F2764B101002F8BF0 /* PhotoPickerViewModel.swift */,
+				1D5256692764C2B4002F8BF0 /* PhotoPicker.swift */,
+			);
+			path = PhotoPickerView;
+			sourceTree = "<group>";
+		};
 		1DC1DA1D276046B100A647E1 /* TravelWellTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +165,9 @@
 				1DC1DA292760761C00A647E1 /* CovidJSON.json */,
 				1DC1DA312760A05400A647E1 /* Persistence.swift */,
 				1D46266E2763C2E400D3ED21 /* ProfileViewModelTest.swift */,
+				1DA265792763D3B700325D04 /* JetLagViewModelTest.swift */,
+				1DA2657B2764A46000325D04 /* CurrencyTest.swift */,
+				1DA2657D2764A5CB00325D04 /* CurrencyJSON.json */,
 			);
 			path = TravelWellTests;
 			sourceTree = "<group>";
@@ -213,6 +237,7 @@
 		1DF2D27E275D70AB00AD5E44 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1D5256612764B12B002F8BF0 /* PhotoPickerView */,
 				1DF2D284275D7CE100AD5E44 /* HomeView */,
 				1DF2D28A275D7F1900AD5E44 /* MapSearchView */,
 				1DF2D288275D7EF700AD5E44 /* MapView */,
@@ -417,7 +442,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D46266F2763C2E400D3ED21 /* ProfileViewModelTest.swift in Sources */,
+				1DA2657A2763D3B700325D04 /* JetLagViewModelTest.swift in Sources */,
 				1DC1DA2E2760831400A647E1 /* HomeViewModelTest.swift in Sources */,
+				1DA2657C2764A46000325D04 /* CurrencyTest.swift in Sources */,
 				1D46266D2763A2C700D3ED21 /* TripViewModelTest.swift in Sources */,
 				1DC1DA2627606E9300A647E1 /* CovidDataTest.swift in Sources */,
 				1DC1DA322760A05400A647E1 /* Persistence.swift in Sources */,
@@ -439,8 +466,10 @@
 				1DF2D281275D730D00AD5E44 /* SafetyRatings.swift in Sources */,
 				1DAD27B7275DF57900F8773D /* ExchangeRates.swift in Sources */,
 				1DDB6E0627399F5C0079881B /* HomeView.swift in Sources */,
+				1D5256622764B144002F8BF0 /* PhotoPickerView.swift in Sources */,
 				1DAD27C1275E073D00F8773D /* JetLagViewModel.swift in Sources */,
 				1D3995F8275CD9F200B8E433 /* HomeViewModel.swift in Sources */,
+				1D5256632764B144002F8BF0 /* PhotoPickerViewModel.swift in Sources */,
 				1DAD27BB275DFA5600F8773D /* MapSearchViewModel.swift in Sources */,
 				1DDB6EA12746702A0079881B /* AppProfile+CoreDataProperties.swift in Sources */,
 				1DDB6EA02746702A0079881B /* AppProfile+CoreDataClass.swift in Sources */,
@@ -454,6 +483,7 @@
 				1DDB6E2D2739D34B0079881B /* MapSearchView.swift in Sources */,
 				1DDB6DF327399ED80079881B /* TravelWellApp.swift in Sources */,
 				1DC1DA17275F1DFE00A647E1 /* JetLagAdvice.swift in Sources */,
+				1D52566A2764C2B5002F8BF0 /* PhotoPicker.swift in Sources */,
 				1DDB6EA32746702A0079881B /* Trip+CoreDataProperties.swift in Sources */,
 				1D3995FA275CDB3F00B8E433 /* TripViewModel.swift in Sources */,
 				1DDB6E152739B6150079881B /* Model.xcdatamodeld in Sources */,
@@ -645,7 +675,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelWell/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NSCalendarsUsageDescription;
+				INFOPLIST_KEY_CFBundleDisplayName = TravelWell;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We'd like to access your calendar to add events.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We'd like acess to your location to display on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -678,7 +708,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelWell/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NSCalendarsUsageDescription;
+				INFOPLIST_KEY_CFBundleDisplayName = TravelWell;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We'd like to access your calendar to add events.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We'd like acess to your location to display on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

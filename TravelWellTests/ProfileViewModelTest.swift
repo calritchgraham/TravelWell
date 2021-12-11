@@ -35,7 +35,7 @@ class ProfileViewModelTest: XCTestCase {
         profileViewModel = nil
     }
 
-    func test() throws {
+    func testProfileView() throws {
         XCTAssertEqual("GBP", profileViewModel.localCurr)
         XCTAssertEqual("Europe/London", profileViewModel.profile?.timeZone)
         XCTAssertTrue(profileViewModel.hasPD)

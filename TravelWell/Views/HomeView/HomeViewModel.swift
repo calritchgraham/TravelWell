@@ -26,7 +26,7 @@ final class HomeViewModel : ObservableObject{
     var isoCurrencyCodes = Locale.commonISOCurrencyCodes
     @Published var exchangeRates :  ExchangeRates?
     @Published var availablePD = 0.0
-    var allExpenses = [Expense]()
+    var todayExpenses = [Expense]()
     
     func setPersistentData(profile: [AppProfile], trips: [Trip]){
         self.trips = trips
@@ -46,9 +46,9 @@ final class HomeViewModel : ObservableObject{
     
     func removeExpense(expense: Expense){
         
-        for i in 0...(allExpenses.count - 1){
-            if allExpenses[i] == expense {
-                allExpenses.remove(at: i)
+        for i in 0...(todayExpenses.count - 1){
+            if todayExpenses[i] == expense {
+                todayExpenses.remove(at: i)
             }
         }
         self.calculatePerDiem()
@@ -62,7 +62,7 @@ final class HomeViewModel : ObservableObject{
         expense.amount = Double(amount) ?? 0.0
         expense.trip = currTrip
         PersistenceController.shared.save()
-        allExpenses.append(expense)
+        todayExpenses.append(expense)
         currency = ""
         amount = ""
         occasion = ""
@@ -71,19 +71,21 @@ final class HomeViewModel : ObservableObject{
         
     }
     
-    func filterExpense(){           // delete expenses from previous day
-        let today = Date()
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        let todayString = formatter.string(from: today)
-        if !allExpenses.isEmpty{
-            for expense in allExpenses{
-                if todayString != formatter.string(from: expense.date!){
-                    PersistenceController.shared.delete(expense)
+    func filterExpense(){   //only show todays expenses on home screen
+        if currTrip?.expense != nil {
+            let today = Date()
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            let todayString = formatter.string(from: today)
+        
+            for expense in Array(currTrip!.expense! as! Set<Expense>){
+                if !todayExpenses.contains(expense) {
+                    if todayString == formatter.string(from: (expense).date!) {
+                        todayExpenses.append(expense)
+                    }
                 }
             }
         }
-        
     }
     
     func getExchangeRates(){
@@ -122,7 +124,7 @@ final class HomeViewModel : ObservableObject{
         
         availablePD = profile?.first!.perDiem ?? 0.0 //negative amount shown if none set
         if exchangeRates != nil{
-            for expense in allExpenses{
+            for expense in todayExpenses{
                 for (currency, rate) in exchangeRates!.rates{
                     if expense.currency == currency{
                         availablePD -= (expense.amount/rate)
@@ -154,13 +156,7 @@ final class HomeViewModel : ObservableObject{
                 if (trip.outbound! <= Date() && trip.inbound! >= Date()){
                     self.currTrip = trip
                     self.onATrip = true
-                    if currTrip?.expense != nil{
-                        for expense in Array(currTrip?.expense as! Set<Expense>){
-                            if !allExpenses.contains(expense){
-                                allExpenses.append(expense)
-                            }
-                        }
-                    }
+                    self.filterExpense()
                 }
             }
         }else{

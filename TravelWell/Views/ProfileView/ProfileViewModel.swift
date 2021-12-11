@@ -11,13 +11,13 @@ import SwiftUI
 
 
 final class ProfileViewModel : ObservableObject{
-    var managedObjectContext = PersistenceController.shared.container.viewContext
+    lazy var managedObjectContext = PersistenceController.shared.container.viewContext
     @Published var selectedTZ = ""
-    @Published var knownTimeZoneIdentifiers = TimeZone.knownTimeZoneIdentifiers
+    lazy var knownTimeZoneIdentifiers = TimeZone.knownTimeZoneIdentifiers
     @Published var hasPD = false
     @Published var localCurr = ""
     @Published var perDiem = ""
-    var isoCurrencyCodes = Locale.commonISOCurrencyCodes
+    lazy var isoCurrencyCodes = Locale.commonISOCurrencyCodes
     @Published var profile : AppProfile?
     
     func setProfile(profile: AppProfile){

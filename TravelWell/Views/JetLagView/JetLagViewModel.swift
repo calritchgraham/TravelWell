@@ -5,14 +5,15 @@
 //  Created by Callum Graham on 06/12/2021.
 //
 
-import Foundation
+import CoreData
 import SwiftUI
 import EventKit
 import EventKitUI
 
 final class JetLagViewModel : ObservableObject {
     var trip : Trip?
-    private var profile : FetchedResults<AppProfile>?
+    private var profile : AppProfile?
+    var managedObjectContext = PersistenceController.shared.container.viewContext
     @Published var easternTravel = false
     @Published var diffInSeconds = 0
     let oneDayInSecs : Double = -60 * 60 * 24
@@ -23,7 +24,7 @@ final class JetLagViewModel : ObservableObject {
     @Published var today = Date()
     @Published var jetLagAdvice : JetLagAdvice?
     
-    func setPersistentData(profile: FetchedResults<AppProfile>){
+    func setProfile(profile: AppProfile){
         self.profile = profile
     }
     
@@ -31,20 +32,26 @@ final class JetLagViewModel : ObservableObject {
         self.trip = trip
     }
     
-    
+    func retrieveProfile(){
+        let fetchRequestProfile: NSFetchRequest<AppProfile>
+        fetchRequestProfile = AppProfile.fetchRequest()
+        profile = try! managedObjectContext.fetch(fetchRequestProfile).first
+    }
+        
     func calcTimeDiff(){            //back to back trips?
-        if !profile!.isEmpty{
-            let homeTZ = TimeZone(identifier: (profile?.first?.timeZone)!)
+        if profile != nil{
+            let homeTZ = TimeZone(identifier: (profile?.timeZone)!)
             let tripTZ = TimeZone(identifier: (trip?.timeZone)!)
             diffInSeconds = tripTZ!.secondsFromGMT() - homeTZ!.secondsFromGMT()
             oneDayBefore = (trip?.outbound?.advanced(by: oneDayInSecs))!
             twoDaysBefore = (trip?.outbound?.advanced(by: oneDayInSecs).advanced(by: oneDayInSecs))!
         }
         
-        if (diffInSeconds < 0){
+        if (diffInSeconds > 0){
             easternTravel = true
             diffInSeconds = abs(diffInSeconds)
         }
+        print(easternTravel)
         jetLagAdvice = JetLagAdvice(easternTravel: easternTravel)
     }
     

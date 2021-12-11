@@ -43,7 +43,7 @@ struct JetLagView: View {
                 
             }
         }.onAppear{
-            jetLagViewModel.setPersistentData(profile: profile)
+            jetLagViewModel.retrieveProfile()
             jetLagViewModel.setTrip(trip: trip!)
             jetLagViewModel.calcTimeDiff()
            

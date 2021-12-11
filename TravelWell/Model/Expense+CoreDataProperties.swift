@@ -21,6 +21,7 @@ extension Expense {
     @NSManaged public var occasion: String?
     @NSManaged public var date: Date?
     @NSManaged public var trip: Trip?
+    @NSManaged public var image: Data?
 
 }
 
