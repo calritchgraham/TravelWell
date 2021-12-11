@@ -126,12 +126,19 @@ struct TripView: View {
                                     }
                                 }
                             }
+                            Section {
+                                VStack{
+                                    NavigationLink(destination: ExpenseReportView(trip: trip)){
+                                        Text("Expense Report")
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            }.onDisappear{
-                self.isLoading = true
             }
+        }.onDisappear{
+            self.isLoading = true
         }
     }
 }

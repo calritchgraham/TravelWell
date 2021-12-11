@@ -27,13 +27,20 @@ struct ResultView : View {
 
                         DatePicker("Inbound Date", selection: $resultViewModel.inbound, in: resultViewModel.getInboundRange(), displayedComponents: .date)
                     }
+                    
+                    Spacer()
+                    
+                    Section{
+                        NavigationLink(destination: TripsView().navigationBarHidden(true)) {
+                            Text("Add Trip")
+                        }.simultaneousGesture(TapGesture().onEnded{
+                            resultViewModel.addTrip(locationResult: locationResult)
+                        })
+                    }
+                    
                 }
                 
-                NavigationLink(destination: TripsView().navigationBarHidden(true)) {
-                    Text("Add Trip")
-                }.simultaneousGesture(TapGesture().onEnded{
-                    resultViewModel.addTrip(locationResult: locationResult)
-                })
+                
                 }.navigationBarTitle("Select Dates", displayMode: .inline)
         }
         }

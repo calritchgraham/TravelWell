@@ -14,6 +14,8 @@
 		1D5256622764B144002F8BF0 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D52565D2764B0BD002F8BF0 /* PhotoPickerView.swift */; };
 		1D5256632764B144002F8BF0 /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D52565F2764B101002F8BF0 /* PhotoPickerViewModel.swift */; };
 		1D52566A2764C2B5002F8BF0 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5256692764C2B4002F8BF0 /* PhotoPicker.swift */; };
+		1D52566F2764E4C6002F8BF0 /* ExpenseReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D52566E2764E4C6002F8BF0 /* ExpenseReportView.swift */; };
+		1D5256712764E4D7002F8BF0 /* ExpenseReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5256702764E4D7002F8BF0 /* ExpenseReportViewModel.swift */; };
 		1DA2657A2763D3B700325D04 /* JetLagViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA265792763D3B700325D04 /* JetLagViewModelTest.swift */; };
 		1DA2657C2764A46000325D04 /* CurrencyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2657B2764A46000325D04 /* CurrencyTest.swift */; };
 		1DAD27B5275DF56000F8773D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD27B4275DF56000F8773D /* Location.swift */; };
@@ -79,6 +81,8 @@
 		1D52565D2764B0BD002F8BF0 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		1D52565F2764B101002F8BF0 /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
 		1D5256692764C2B4002F8BF0 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		1D52566E2764E4C6002F8BF0 /* ExpenseReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseReportView.swift; sourceTree = "<group>"; };
+		1D5256702764E4D7002F8BF0 /* ExpenseReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseReportViewModel.swift; sourceTree = "<group>"; };
 		1DA265792763D3B700325D04 /* JetLagViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetLagViewModelTest.swift; sourceTree = "<group>"; };
 		1DA2657B2764A46000325D04 /* CurrencyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTest.swift; sourceTree = "<group>"; };
 		1DA2657D2764A5CB00325D04 /* CurrencyJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrencyJSON.json; sourceTree = "<group>"; };
@@ -154,6 +158,15 @@
 				1D5256692764C2B4002F8BF0 /* PhotoPicker.swift */,
 			);
 			path = PhotoPickerView;
+			sourceTree = "<group>";
+		};
+		1D52566D2764E4AF002F8BF0 /* ExpenseReportView */ = {
+			isa = PBXGroup;
+			children = (
+				1D52566E2764E4C6002F8BF0 /* ExpenseReportView.swift */,
+				1D5256702764E4D7002F8BF0 /* ExpenseReportViewModel.swift */,
+			);
+			path = ExpenseReportView;
 			sourceTree = "<group>";
 		};
 		1DC1DA1D276046B100A647E1 /* TravelWellTests */ = {
@@ -237,6 +250,7 @@
 		1DF2D27E275D70AB00AD5E44 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1D52566D2764E4AF002F8BF0 /* ExpenseReportView */,
 				1D5256612764B12B002F8BF0 /* PhotoPickerView */,
 				1DF2D284275D7CE100AD5E44 /* HomeView */,
 				1DF2D28A275D7F1900AD5E44 /* MapSearchView */,
@@ -479,8 +493,10 @@
 				1DDB6E0827399FFB0079881B /* HostingTabBar.swift in Sources */,
 				1DAD27BF275E066200F8773D /* LocationServicesModel.swift in Sources */,
 				1DDB6E0A2739A0EA0079881B /* ProfileView.swift in Sources */,
+				1D52566F2764E4C6002F8BF0 /* ExpenseReportView.swift in Sources */,
 				1DDB6E2B2739C6D50079881B /* TripView.swift in Sources */,
 				1DDB6E2D2739D34B0079881B /* MapSearchView.swift in Sources */,
+				1D5256712764E4D7002F8BF0 /* ExpenseReportViewModel.swift in Sources */,
 				1DDB6DF327399ED80079881B /* TravelWellApp.swift in Sources */,
 				1DC1DA17275F1DFE00A647E1 /* JetLagAdvice.swift in Sources */,
 				1D52566A2764C2B5002F8BF0 /* PhotoPicker.swift in Sources */,
@@ -678,6 +694,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = TravelWell;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We'd like to access your calendar to add events.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We'd like acess to your location to display on the map";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We would like to add your expense report to your photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -711,6 +728,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = TravelWell;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We'd like to access your calendar to add events.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We'd like acess to your location to display on the map";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We would like to add your expense report to your photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

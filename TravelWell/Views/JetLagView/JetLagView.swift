@@ -19,36 +19,36 @@ struct JetLagView: View {
     
     
     var body: some View {
-        VStack{
-            if jetLagViewModel.diffInSeconds < 7200 {  //2 hours
-                Text("There is negligible time difference between your home and destination")
-                
-            }else{
-                VStack{
-                    Button("Add Reminders to Calendar"){
-                        jetLagViewModel.checkCalendarAccess()
+        //NavigationView{
+            VStack{
+                if jetLagViewModel.diffInSeconds < 7200 {  //2 hours
+                    Text("There is negligible time difference between your home and destination")
+                    
+                }else{
+                    VStack{
+                        Button("Add Reminders to Calendar"){
+                            jetLagViewModel.checkCalendarAccess()
+                        }
+                        Text(jetLagViewModel.twoDaysBefore, style: .date).bold()
+                        Text(jetLagViewModel.jetLagAdvice!.twoDaysBefore)
+                        Divider()
+                        Text(jetLagViewModel.oneDayBefore, style: .date).bold()
+                        Text(jetLagViewModel.jetLagAdvice!.oneDayBefore)
+                        Divider()
+                        Text((trip?.outbound)!, style: .date).bold()
+                        Text(jetLagViewModel.jetLagAdvice!.arrival)
+                        Divider()
+                        
                     }
-                    Text(jetLagViewModel.twoDaysBefore, style: .date).bold()
-                    Text(jetLagViewModel.jetLagAdvice!.twoDaysBefore)
-                    Divider()
-                    Text(jetLagViewModel.oneDayBefore, style: .date).bold()
-                    Text(jetLagViewModel.jetLagAdvice!.oneDayBefore)
-                    Divider()
-                    Text((trip?.outbound)!, style: .date).bold()
-                    Text(jetLagViewModel.jetLagAdvice!.arrival)
-                    Divider()
+                    Text("This advice is based on research by Dr Robert L Slack, published in The New England Journal of Medicine, 2010")
                     
                 }
-                Text("This advice is based on research by Dr Robert L Slack, published in The New England Journal of Medicine, 2010")
-                
-            }
-        }.onAppear{
-            jetLagViewModel.retrieveProfile()
-            jetLagViewModel.setTrip(trip: trip!)
-            jetLagViewModel.calcTimeDiff()
-           
-            
-        }
+            }.onAppear{
+                jetLagViewModel.retrieveProfile()
+                jetLagViewModel.setTrip(trip: trip!)
+                jetLagViewModel.calcTimeDiff()
+            }.navigationBarHidden(true)
+       // }
     }
 }
 

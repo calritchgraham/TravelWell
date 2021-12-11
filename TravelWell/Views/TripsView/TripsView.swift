@@ -17,8 +17,7 @@ struct TripsView: View {
     var body: some View {
         NavigationView{
             VStack{
-                
-                List {
+                Form {
                     ForEach(trips, id:\.self) { currentTrip in
                         NavigationLink(destination: TripView(trip: currentTrip)){
                             VStack{
@@ -29,12 +28,13 @@ struct TripsView: View {
                             
                         }
                     }.onDelete(perform: removeTrip)
+                    Spacer()
+                    Section{
+                        NavigationLink(destination: AddTripView()){
+                          Text("Add a Trip")
+                        }
+                    }
                 }
-                NavigationLink(destination: AddTripView()){
-                  Text("Add a Trip")
-                }
-                
-                Spacer()
             }
         }
     }
