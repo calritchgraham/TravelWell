@@ -55,51 +55,82 @@ final class JetLagViewModel : ObservableObject {
         jetLagAdvice = JetLagAdvice(easternTravel: easternTravel)
     }
     
-    func checkCalendarAccess() {
-        let eventStore = EKEventStore()
-                
-        switch EKEventStore.authorizationStatus(for: .event) {
-        case .authorized:
-            self.addEvents(store: eventStore)
-            case .denied:
-                print("Access denied")
-            case .notDetermined:
-            
-                eventStore.requestAccess(to: .event, completion:
-                  {[weak self] (granted: Bool, error: Error?) -> Void in
-                      if granted {
-                          print("approoved")
-                          self?.addEvents(store: eventStore)
-                      } else {
-                            print("Access denied")
-                      }
-                })
-                default:
-                    print("Case default")
+    func checkNotificationAccess() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                self.addNotifications()
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
         }
     }
     
-    func addEvents(store: EKEventStore) {
+    func addNotifications() {
+        let notification1 = UNMutableNotificationContent()
+        notification1.title = "Jet Lag Advice"
+        notification1.subtitle = "Go to bed 2/3 hours \(jetLagAdvice!.modifierPre) than normal"
+        notification1.sound = UNNotificationSound.default
         
-        let calendars = store.calendars(for: .event)
+        let notification2 = UNMutableNotificationContent()
+        notification2.title = "Jet Lag Advice"
+        notification2.subtitle = "Go to bed 1/2 hours \(jetLagAdvice?.modifierPre) than normal"
+        notification2.sound = UNNotificationSound.default
         
-        let event1 = EKEvent(eventStore: store)
-        event1.title = "Go to bed 2/3 hours \(jetLagAdvice!.modifierPre) than normal"
-        event1.startDate = twoDaysBefore.advanced(by: 19 * 60 * 60) //advance by 19 hours to start at 7pm
-        event1.endDate = twoDaysBefore.advanced(by: 19.5 * 60 * 60)
-  
-        let event2 = EKEvent(eventStore: store)
-        event2.title = "Go to bed 1/2 hours \(jetLagAdvice?.modifierPre) than normal"
-        event2.startDate = oneDayBefore.advanced(by: 20 * 60 * 60) //advance by 20 hours to start at 8pm
-        event2.endDate = oneDayBefore.advanced(by: 20.5 * 60 * 60)
+        let date1 = twoDaysBefore.advanced(by: 20 * 60 * 60) //advance by 20 hours to start at 8pm
+        let date2 = oneDayBefore.advanced(by: 20 * 60 * 60)
         
-        do {
-            try store.save(event1, span: .thisEvent)
-            try store.save(event2, span: .thisEvent)
-        }
-        catch {
-           print("Error saving event in calendar")
-        }
+        let dateComponent1 = Calendar.current.dateComponents([.year, .month, .day], from: date1)
+        let dateComponent2 = Calendar.current.dateComponents([.year, .month, .day], from: date2)
+        
+        let trigger1 = UNCalendarNotificationTrigger(dateMatching: dateComponent1, repeats: false)
+        let trigger2 = UNCalendarNotificationTrigger(dateMatching: dateComponent2, repeats: false)
+      
+        let request1 = UNNotificationRequest(identifier: UUID().uuidString, content: notification1, trigger: trigger1)
+        let request2 = UNNotificationRequest(identifier: UUID().uuidString, content: notification2, trigger: trigger2)
+        
+        UNUserNotificationCenter.current().add(request1)
+        UNUserNotificationCenter.current().add(request2)
     }
+    
+//    func checkCalendarAccess() {
+//        let eventStore = EKEventStore()
+//
+//        eventStore.requestAccess(to: .event, completion:
+//              {(granted: Bool, error: Error?) -> Void in
+//                  if granted {
+//                    self.addEvents(store: eventStore)
+//                  } else {
+//                    print("Access denied")
+//                  }
+//            })
+//        }
+//
+//    func addEvents(store: EKEventStore) {
+//
+//        let calendars = store.calendars(for: .reminder)
+//        let calendar = calendars.first
+//
+//        print(calendars)
+//
+//        let event1 = EKEvent(eventStore: store)
+//        event1.title = "Go to bed 2/3 hours \(jetLagAdvice!.modifierPre) than normal"
+//        event1.startDate = twoDaysBefore.advanced(by: 19 * 60 * 60) //advance by 19 hours to start at 7pm
+//        event1.endDate = twoDaysBefore.advanced(by: 19.5 * 60 * 60)
+//        event1.calendar = calendar
+//
+//        let event2 = EKEvent(eventStore: store)
+//        event2.title = "Go to bed 1/2 hours \(jetLagAdvice?.modifierPre) than normal"
+//        event2.startDate = oneDayBefore.advanced(by: 20 * 60 * 60) //advance by 20 hours to start at 8pm
+//        event2.endDate = oneDayBefore.advanced(by: 20.5 * 60 * 60)
+//        event2.calendar = calendar
+//
+//        do {
+//            try store.save(event1, span: .thisEvent)
+//            try store.save(event2, span: .thisEvent)
+//        }
+//        catch let error {
+//            print("Error adding to calendar: ", error)
+//        }
+//    }
 }
 

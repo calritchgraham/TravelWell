@@ -79,7 +79,6 @@ class MapSearchViewModel: ObservableObject {
         favourite.name = item.placemark.name
         PersistenceController.shared.save()
         favourites.append(item.name!)
-        print(favourites)
     }
     
 }

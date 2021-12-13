@@ -61,7 +61,7 @@ final class ResultViewModel : ObservableObject {
                 trip.lat = (response.mapItems.first?.placemark.coordinate.latitude)!
                 trip.long = (response.mapItems.first?.placemark.coordinate.longitude)!
                 trip.destination = response.mapItems.first?.placemark.isoCountryCode
-                PersistenceController.shared.save()
+                //PersistenceController.shared.save()
                 try managedObjectContext.save()
             }else{
                 //notify error

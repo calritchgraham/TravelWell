@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ExpenseReportView: View {
     var trip: Trip
     @StateObject var expenseReportViewModel = ExpensesReportViewModel()
     @State var isLoading = true
     
-    var body: some View {
+    var expenseView: some View {
         NavigationView{
             if self.isLoading{
                 Text("Loading...").onAppear{
@@ -42,15 +43,23 @@ struct ExpenseReportView: View {
                             }
                         }
                     }
-                    Section{
-                        Button("Save to Album") {
-                            let image = body.snapshot()
-                            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                        }
-                    }
                 }
             }
         }.navigationBarHidden(true)
+    }
+    
+    var body: some View{
+        VStack{
+            expenseView
+            
+            Section{
+                Button("Save to Album") {
+                    let image = expenseView.snapshot()
+                    let imageSaver = ImageSaver()
+                    imageSaver.writeToPhotoAlbum(image: image)
+                }
+            }
+        }
     }
 }
 
@@ -68,5 +77,15 @@ extension View {
         return renderer.image { _ in
             view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
         }
+    }
+}
+
+class ImageSaver: NSObject {
+    func writeToPhotoAlbum(image: UIImage) {
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveCompleted), nil)
+    }
+
+    @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        print("Save finished!")
     }
 }
