@@ -28,29 +28,24 @@ class MapSearchViewModel: ObservableObject {
     }
 
    
-    func search(){
+    func search(){          //search with search term
         let request = MKLocalSearch.Request()
         request.region = region!
         request.naturalLanguageQuery = searchTerm
         let search = MKLocalSearch(request: request)
         search.start(completionHandler: {(response, error) in
                    
-           if error != nil {
-              print("Error occured in search: \(error!.localizedDescription)")
-           } else if response!.mapItems.count == 0 {
-              print("No matches found")
-           } else {
-              print("Matches found")
-           }
-              for item in response!.mapItems {  //do something if nil
-                  
-                  self.results.append(item)
-              }
-            
-        })
+       if error != nil {
+          print("Error occured in search: \(error!.localizedDescription)")
+        }
+        for item in response!.mapItems {
+          self.results.append(item)
+      }
+        
+    })
     }
     
-    func populateFavourites() {
+    func populateFavourites() {  //add current favourites so this can be displayed in comparison to results
         for fav in Array(currTrip?.favourite as! Set<Favourite>){
             if fav.name != nil{
                 favourites.append(fav.name!)

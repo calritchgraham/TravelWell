@@ -32,22 +32,26 @@ final class ProfileViewModel : ObservableObject{
         self.setProfileValues()
     }
     
-    func setProfileValues() {
+    func setProfileValues() {       //display current values
         if profile != nil {
             self.selectedTZ = (profile?.timeZone!)!
             self.perDiem = String((profile?.perDiem)!)
             self.localCurr = profile!.localCurr
             self.hasPD = ((profile?.hasPD)!)
+            
         }
     }
-    
     
     func saveProfile(){
         let profile = AppProfile(context: managedObjectContext)
         profile.timeZone = self.selectedTZ
         profile.localCurr = self.localCurr
         profile.hasPD = self.hasPD
-        profile.perDiem = Double(self.perDiem) ?? 0.0
+        if self.hasPD {
+            profile.perDiem = Double(self.perDiem) ?? 0.0
+        } else {
+            profile.perDiem = 0.0
+        }
         PersistenceController.shared.save()
     
     }

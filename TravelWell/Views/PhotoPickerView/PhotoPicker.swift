@@ -9,16 +9,16 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct PhotoPicker: UIViewControllerRepresentable {
+struct PhotoPicker: UIViewControllerRepresentable {             //use UIKit as no SwiftUI way to achieve this
    
     @Environment(\.presentationMode) var presentationMode
     @Binding var image: UIImage?
     
 
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {      //internal class delegate
         let parent: PhotoPicker
 
-        init(_ parent: PhotoPicker) {
+        init(_ parent: PhotoPicker) {           //set delegate as self
             self.parent = parent
         }
 

@@ -63,29 +63,29 @@ struct ExpenseReportView: View {
     }
 }
 
-extension View {
+extension View {                    // extend view to create photo from view
     func snapshot() -> UIImage {
-        let controller = UIHostingController(rootView: self)
+        let controller = UIHostingController(rootView: self)  //wrap view in UIKit controller
         let view = controller.view
 
-        let targetSize = controller.view.intrinsicContentSize
+        let targetSize = controller.view.intrinsicContentSize   //set target size same as original view
         view?.bounds = CGRect(origin: .zero, size: targetSize)
         view?.backgroundColor = .clear
 
         let renderer = UIGraphicsImageRenderer(size: targetSize)
 
-        return renderer.image { _ in
+        return renderer.image { _ in                                //render image
             view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
         }
     }
 }
 
-class ImageSaver: NSObject {
+class ImageSaver: NSObject {                    //save image to album and completion handler
     func writeToPhotoAlbum(image: UIImage) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveCompleted), nil)
     }
 
     @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        print("Save finished!")
+        print("Save finished")
     }
 }

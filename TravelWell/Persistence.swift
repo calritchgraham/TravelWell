@@ -9,7 +9,7 @@ import CoreData
 
 struct PersistenceController{
     
-    static let shared = PersistenceController()
+    static let shared = PersistenceController()  //singular
         
     let container: NSPersistentContainer
   

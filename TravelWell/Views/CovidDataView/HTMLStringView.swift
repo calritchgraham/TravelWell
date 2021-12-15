@@ -8,10 +8,10 @@
 import SwiftUI
 import WebKit
 
-struct HTMLStringView: UIViewRepresentable {
+struct HTMLStringView: UIViewRepresentable {        //no SwiftUI mechanism to display html
     let htmlContent: String
 
-    func makeUIView(context: Context) -> WKWebView {
+    func makeUIView(context: Context) -> WKWebView {        //renders view to display inside parent
         return WKWebView()
     }
 

@@ -39,7 +39,7 @@ struct ProfileView: View {
         }.onTapGesture{
             hideKeyboard()
         }.onAppear{
-            profileViewModel.retrieveProfile()
+            profileViewModel.retrieveProfile() //only one profile at any one time in store
         }.onDisappear{
             profileViewModel.saveProfile()
         }

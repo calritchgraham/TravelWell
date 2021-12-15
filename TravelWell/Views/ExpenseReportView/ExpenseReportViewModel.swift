@@ -23,7 +23,6 @@ final class ExpensesReportViewModel: ObservableObject {
             }
            
             sortedExpenses.sorted(by: {$0.date! < $1.date!})
-            print(sortedExpenses)
         }
     }
 }

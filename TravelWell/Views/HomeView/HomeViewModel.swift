@@ -58,7 +58,7 @@ final class HomeViewModel : ObservableObject{
         let expense = Expense(context: managedObjectContext)
         expense.currency = currency
         expense.occasion = occasion
-        expense.date = Date()
+        expense.date = Date()           //can only add expenses for today
         expense.amount = Double(amount) ?? 0.0
         expense.trip = currTrip
         PersistenceController.shared.save()
@@ -74,7 +74,7 @@ final class HomeViewModel : ObservableObject{
     func filterExpense(){   //only show todays expenses on home screen
         if currTrip?.expense != nil {
             let today = Date()
-            let formatter = DateFormatter()
+            let formatter = DateFormatter()         //filter by string as Date() includes time component
             formatter.dateStyle = .short
             let todayString = formatter.string(from: today)
         
@@ -90,8 +90,8 @@ final class HomeViewModel : ObservableObject{
     
     func getExchangeRates(){
         if profile?.first?.localCurr != nil {
-            let url = "https://open.er-api.com/v6/latest/"
-            let completeURL = url + (profile?.first?.localCurr)!
+            let url = "https://open.er-api.com/v6/latest/"          //open API
+            let completeURL = url + (profile?.first?.localCurr)!    //cant save without currency
             guard let callURL = URL(string: completeURL) else { fatalError("Missing URL") }
             let urlRequest = URLRequest(url: callURL)
 
@@ -103,7 +103,7 @@ final class HomeViewModel : ObservableObject{
 
                 guard let response = response as? HTTPURLResponse else { return }
 
-                if response.statusCode == 200 {
+                if response.statusCode == 200 {     //success
                     guard let data = data else { return }
                     DispatchQueue.main.async {
                         do {
@@ -144,7 +144,7 @@ final class HomeViewModel : ObservableObject{
                 let timeAtHome  = Calendar.current.date(byAdding: .second, value: increment, to: Date())!
                 return timeAtHome
             }else{
-                return Date()
+                return Date() //current time at location
             }
         }
         return Date()
@@ -170,6 +170,7 @@ final class HomeViewModel : ObservableObject{
              let accomPin = Location(coordinate: CLLocationCoordinate2D(latitude: currTrip!.lat, longitude: currTrip!.long))
              self.accom.append(accomPin)
              currCoords = CLLocationCoordinate2D(latitude: currTrip!.lat, longitude: currTrip!.long)
+//           use this to centre map on current locaton rather than accomodation location
 //             while currCoords == nil {
 //                 self.currCoords = mapViewModel.locationManager?.location?.coordinate
 //             }

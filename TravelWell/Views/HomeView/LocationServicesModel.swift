@@ -31,9 +31,9 @@ final class LocationServicesModel: NSObject, ObservableObject, CLLocationManager
             case .notDetermined:
                     locationManager.requestWhenInUseAuthorization()
             case .restricted:
-                print("show an alert (parental controls?)") //show alert
+                print("show an alert (parental controls?)")
             case .denied:
-                print("alert you have denied this app location services, this can be changed in settings") //show alert
+                print("alert you have denied this app location services, this can be changed in settings")
             case .authorizedAlways, .authorizedWhenInUse:
                 locationManager.startUpdatingLocation()
                 //coordinate = locationManager.location!.coordinate

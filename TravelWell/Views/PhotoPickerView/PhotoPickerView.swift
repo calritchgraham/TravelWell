@@ -15,7 +15,7 @@ struct PhotoPickerView: View {
     @StateObject private var photoPickerViewModel =  PhotoPickerViewModel()
     
     func save() {
-        let pickedImage = inputImage?.jpegData(compressionQuality: 1.0)
+        let pickedImage = inputImage?.jpegData(compressionQuality: 1.0)     //convert from jpeg to binary data to save in CoreData
         expense.image = pickedImage
         PersistenceController.shared.save()
         photoPickerViewModel.isSaved = true

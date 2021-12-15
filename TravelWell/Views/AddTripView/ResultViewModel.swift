@@ -45,7 +45,7 @@ final class ResultViewModel : ObservableObject {
         return inboundRange
     }
     
-    func addTrip(locationResult: MKLocalSearchCompletion){                               
+    func addTrip(locationResult: MKLocalSearchCompletion){  //save trip after getting coordiantes, time zone and country code from search result
         let trip = Trip(context: managedObjectContext)
         trip.inbound = inbound
         trip.outbound = outbound

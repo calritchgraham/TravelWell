@@ -22,7 +22,7 @@ class ProfileViewModelTest: XCTestCase {
     }
     
     func createData() {
-        var newProfile = NSEntityDescription.insertNewObject(forEntityName: "AppProfile", into: managedObjectContext) as! AppProfile
+        let newProfile = NSEntityDescription.insertNewObject(forEntityName: "AppProfile", into: managedObjectContext) as! AppProfile
         newProfile.perDiem = 50
         newProfile.localCurr = "GBP"
         newProfile.hasPD = true

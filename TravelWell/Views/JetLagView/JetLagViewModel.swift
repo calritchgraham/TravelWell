@@ -55,7 +55,7 @@ final class JetLagViewModel : ObservableObject {
         jetLagAdvice = JetLagAdvice(easternTravel: easternTravel)
     }
     
-    func checkNotificationAccess() {
+    func checkNotificationAccess() {  //check permissions to add notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
                 self.addNotifications()
@@ -65,7 +65,7 @@ final class JetLagViewModel : ObservableObject {
         }
     }
     
-    func addNotifications() {
+    func addNotifications() {       //locally stored notification
         let notification1 = UNMutableNotificationContent()
         notification1.title = "Jet Lag Advice"
         notification1.subtitle = "Go to bed 2/3 hours \(jetLagAdvice!.modifierPre) than normal"

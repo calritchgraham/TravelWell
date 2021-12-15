@@ -24,7 +24,7 @@ struct MapView: View {
                 TextField("Search for...", text: $searchTerm)
                 if searchTerm != "" {
                     NavigationLink(destination: MapSearchView(searchTerm: searchTerm, accom: accom, region: region, currTrip: currTrip)){
-                        Image(systemName: "magnifyingglass.circle.fill")//bigger
+                        Image(systemName: "magnifyingglass.circle.fill")
                     }
                 }
             }.frame(height: 50.00)

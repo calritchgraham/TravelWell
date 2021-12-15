@@ -111,11 +111,11 @@ struct HomeView: View {
                             }.onDelete(perform: removeExpense)
                         }
                         Section {
-                            NavigationLink(destination: MapView(region: homeViewModel.region, accom: homeViewModel.accom, currTrip: homeViewModel.currTrip!)){
+                            NavigationLink(destination: MapView(region: homeViewModel.region, accom: homeViewModel.accom, currTrip: homeViewModel.currTrip!)){      //centre map on accomodation coords and show location of user
                                  Map(coordinateRegion: $homeViewModel.region , showsUserLocation: true, annotationItems: homeViewModel.accom) { place in
                                          MapMarker(coordinate: place.coordinate, tint: Color.purple)
                                      }
-                            }.frame(width: 400, height: 300).onAppear{
+                            }.frame(width: 410, height: 300).onAppear{
                                  homeViewModel.mapInitiate()
                             }
                             if homeViewModel.currTrip != nil && homeViewModel.currTrip?.favourite != nil {
@@ -129,10 +129,11 @@ struct HomeView: View {
                                                 HStack{
                                                     Text("Distance from accomodation")
                                                     Spacer()
+                                                    //direct distance between 2 coordinates
                                                     Text("\((Int((((CLLocation(latitude: item.lat, longitude: item.long).distance(from: (CLLocation(latitude: homeViewModel.currTrip!.lat, longitude: homeViewModel.currTrip!.long))))))))) m")
                                                 }
                                                 
-                                        }.onTapGesture{
+                                        }.onTapGesture{ //show favourite and accomodation pin on map, also shows on small map
                                             homeViewModel.accom.append(Location(coordinate: CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)))
                                                 }
                                             }
@@ -161,7 +162,7 @@ struct HomeView: View {
                 
 
 
-extension View {
+extension View {            //extension to dismiss keyboard as decimal pad has no 'done' button
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
