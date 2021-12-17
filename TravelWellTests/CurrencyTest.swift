@@ -14,7 +14,7 @@ class CurrencyTest: XCTestCase {
         
         guard let pathString = Bundle(for: type(of: self)).path(forResource: "CurrencyJSON", ofType: "json") else { fatalError("json not found")}
         
-        guard let json = try? String(contentsOfFile: pathString, encoding: .utf8) else {fatalError("unsable to convert file to string")}
+        guard let json = try? String(contentsOfFile: pathString, encoding: .utf8) else {fatalError("unable to convert file to string")}
         
         let jsonData = json.data(using: .utf8)!
         let currencyResults = try! JSONDecoder().decode(ExchangeRates.self, from: jsonData)
